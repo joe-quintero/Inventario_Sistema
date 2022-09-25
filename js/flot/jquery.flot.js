@@ -351,7 +351,7 @@ Licensed under the MIT license.
 
 		if (info == null) {
 
-			var element = $("<div></div>").html(text)
+			var element = $("<div></div>").php(text)
 				.css({
 					position: "absolute",
 					'max-width': width,
@@ -2712,7 +2712,7 @@ Licensed under the MIT license.
         function insertLegend() {
 
             if (options.legend.container != null) {
-                $(options.legend.container).html("");
+                $(options.legend.container).php("");
             } else {
                 placeholder.find(".legend").remove();
             }
@@ -2783,7 +2783,7 @@ Licensed under the MIT license.
 
             var table = '<table style="font-size:smaller;color:' + options.grid.color + '">' + fragments.join("") + '</table>';
             if (options.legend.container != null)
-                $(options.legend.container).html(table);
+                $(options.legend.container).php(table);
             else {
                 var pos = "",
                     p = options.legend.position,
