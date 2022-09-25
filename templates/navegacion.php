@@ -15,8 +15,14 @@
         <!-- MetisMenu CSS -->
         <link href="../css/metisMenu.min.css" rel="stylesheet">
 
+        <!-- Timeline CSS -->
+        <link href="../css/timeline.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link href="../css/startmin.css" rel="stylesheet">
+
+        <!-- Morris Charts CSS -->
+        <link href="../css/morris.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -131,7 +137,7 @@
                                         <button class="btn btn-primary" type="button">
                                             <i class="fa fa-search"></i>
                                         </button>
-                                    </span>
+                                </span>
                                 </div>
                                 <!-- /input-group -->
                             </li>
@@ -210,11 +216,11 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a class="active" href="blank.html">Blank Page</a>
+                                        <a href="blank.html">Blank Page</a>
                                     </li>
                                     <li>
                                         <a href="login.html">Login Page</a>
@@ -228,36 +234,3 @@
                 </div>
                 <!-- /.navbar-static-side -->
             </nav>
-
-            <!-- Page Content -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">Blank</h1>
-                        </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /#page-wrapper -->
-
-        </div>
-        <!-- /#wrapper -->
-
-        <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
-
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/metisMenu.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="../js/startmin.js"></script>
-
-    </body>
-</html>
