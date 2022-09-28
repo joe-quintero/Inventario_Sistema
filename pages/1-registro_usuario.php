@@ -142,11 +142,34 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Page Title</h1>
+                    <h1 class="page-header">Registro de Usuarios</h1>
                 </div>
             </div>
 
-            <!-- ... Your content goes here ... -->
+            <form>
+                <fieldset>
+                    <legend>Datos del Usuario</legend>
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre placeholder="Nombre del Usuario"> 
+                    <br>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id= apellido placeholder="Apellido del Usuario"> 
+                    <br>
+                    <label for="cedula">Cedula</label>
+                    <input type="number" id= cedula placeholder="Cedula de identidad"> 
+                    <br>
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id= usuario placeholder="Nombre de Usuario"> 
+                    <br>
+                    <label for="cargo">Cargo</label>
+                    <select name="cargo" id="cargo">
+                        <option value="0">Seleccionar</option>
+                        <option value="1">Vendedor</option>
+                        <option value="2">Supervisor</option>
+                    </select>
+                </fieldset>
+            </form>
 
         </div>
     </div>
