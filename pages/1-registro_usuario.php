@@ -2,6 +2,7 @@
 require '../include/config/database.php';
 
 $db = conectarDB();
+
 ?>
 
 <!DOCTYPE html>
@@ -154,31 +155,44 @@ $db = conectarDB();
                 </div>
             </div>
 
-            <form class="formulario" method="POST" action="pages/">
+<?php
+
+
+
+if ($_SERVER['REQUEST_METHOD']=== 'POST') {
+    echo "<pre>";
+    var_dump($_POST);
+    echo "</pre>";
+}
+
+?>
+
+
+            <form class="formulario" method="POST" action="1-registro_usuario.php">
                 <fieldset>
                     <legend>Datos del Usuario</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre placeholder="Nombre del Usuario"> 
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario"> 
                     <br>
                     <label for="apellido">Apellido</label>
-                    <input type="text" id= apellido placeholder="Apellido del Usuario"> 
+                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario"> 
                     <br>
-                    <label for="cedula">Cedula</label>
-                    <input type="number" id= cedula placeholder="Cedula de identidad"> 
+                    <label for="identificacion">Cedula</label>
+                    <input type="number" id= identificacion name="identificacion" placeholder="Cedula de identidad"> 
                     <br>
                     <label for="usuario">Usuario</label>
-                    <input type="text" id= usuario placeholder="Nombre de Usuario"> 
+                    <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario"> 
                     <br>
                     <label for="cargo">Cargo</label>
                     <select name="cargo" id="cargo">
                         <option value="0">Seleccionar</option>
-                        <option value="1">Vendedor</option>
                         <option value="2">Supervisor</option>
+                        <option value="3">Vendedor</option>
                     </select>
                 </fieldset>
 
-                <input type="submit" value="crear usuario" class="boton-verde">
+                <input type="submit" value="crear usuario" class="boton-envio"> 
             </form>
 
         </div>
