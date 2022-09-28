@@ -1,3 +1,9 @@
+<?php
+require '../include/config/database.php';
+
+$db = conectarDB();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +41,8 @@
     <![endif]-->
 </head>
 <body>
+
+
 
 <div id="wrapper">
 
@@ -146,7 +154,7 @@
                 </div>
             </div>
 
-            <form>
+            <form class="formulario" method="POST" action="pages/">
                 <fieldset>
                     <legend>Datos del Usuario</legend>
 
@@ -169,6 +177,8 @@
                         <option value="2">Supervisor</option>
                     </select>
                 </fieldset>
+
+                <input type="submit" value="crear usuario" class="boton-verde">
             </form>
 
         </div>
