@@ -157,12 +157,31 @@ $db = conectarDB();
 
 <?php
 
-
+// Mostrar lo que se envia por el metodo POST
 
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     echo "<pre>";
     var_dump($_POST);
     echo "</pre>";
+
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $identificacion = $_POST['identificacion'];
+    $usuario = $_POST['usuario'];
+    $id_cargo = $_POST['id_cargo'];
+
+# Insertar en la Bade de Datos
+
+    $query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
+    VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '2020-09-28')"; 
+
+//    echo $query; //Probar que envia el query
+
+$resultado = mysqli_query($db, $query);
+
+    if ($resultado) {
+        echo "¡Insercion corracta!";
+    }
 }
 
 ?>
@@ -184,8 +203,8 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
                     <label for="usuario">Usuario</label>
                     <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario"> 
                     <br>
-                    <label for="cargo">Cargo</label>
-                    <select name="cargo" id="cargo">
+                    <label for="id_cargo">Cargo</label>
+                    <select name="id_cargo" id="id_cargo" name="id_cargo">
                         <option value="0">Seleccionar</option>
                         <option value="2">Supervisor</option>
                         <option value="3">Vendedor</option>
