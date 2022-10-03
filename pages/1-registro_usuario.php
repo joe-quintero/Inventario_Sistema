@@ -3,6 +3,11 @@ require '../include/config/database.php';
 
 $db = conectarDB();
 
+//Consulta para optener cargo
+$consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
+$resultado = mysqli_query($db,$consultaCargos)
+
+
 ?>
 
 <!DOCTYPE html>
@@ -249,8 +254,9 @@ if ($resultado) {
                     <label for="id_cargo">Cargo</label>
                     <select name="id_cargo" id="id_cargo" name="id_cargo">
                         <option value="">---Seleccionar---</option>
-                        <option value="2">Supervisor</option>
-                        <option value="3">Vendedor</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
+                            <option value=" <?php echo $row ['id_cargo'] ?> "> <?php echo $row ['cargo'] ?> </option>
+                        <?php endwhile ?>
                     </select>
                 </fieldset>
 
