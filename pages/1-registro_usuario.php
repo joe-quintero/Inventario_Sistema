@@ -7,6 +7,75 @@ $db = conectarDB();
 $consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
 $resultado = mysqli_query($db,$consultaCargos);
 
+
+
+
+//Array con mensajes de Error para lavidar que los campos no se envien vacios
+$errores= [];
+
+$nombre = ''; //variables para valores temporales en el formulario
+$apellido = '';
+$identificacion = '';
+$usuario =  '';
+$id_cargo = '';
+
+// Ejecutar el codigo luego que el usuario envia el formulario.
+if ($_SERVER['REQUEST_METHOD']=== 'POST') {
+// echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
+// var_dump($_POST);
+// echo "</pre>";
+
+    $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
+    $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
+    $identificacion =mysqli_real_escape_string($db , $_POST['identificacion']);
+    $usuario =mysqli_real_escape_string($db , $_POST['usuario']);
+    $id_cargo =mysqli_real_escape_string($db , $_POST['id_cargo']);
+    $fecha = date('Y/m/d');
+
+//Se valida el fomulario.
+    if (!$nombre){
+        $errores[]= "Debe colocar el Nombre";
+    }
+
+    if (!$apellido){
+        $errores[]= "Debe colocar el Apellido";
+    }
+
+    if (strlen ($identificacion) < 7){
+        $errores[]= "Debe colocar la Cedula corecta";
+    }
+
+    if (!$usuario){
+        $errores[]= "Debe colocar Nombre de usuario";
+    }
+
+    if (!$id_cargo){
+        $errores[]= "Debe elegir el Cargo";
+    }
+
+//Mostrar en formato Array lo que hay en la variable errores.
+// echo "<pre>";  
+// var_dump($errores);
+// echo "</pre>";   
+
+//Revisar que el array de errores este vacio para ejecutar el query
+    if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
+    
+# Insertar en la Bade de Datos
+$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
+
+//    echo $query; //Probar que envia el query
+
+$resultado = mysqli_query($db, $query);
+
+if ($resultado) {
+    header("Location: http://localhost/tesis/Inventario_Sistema/pages/1-registro_usuario.php");
+}
+}
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -162,72 +231,6 @@ $resultado = mysqli_query($db,$consultaCargos);
                 </div>
             </div>
 
-<?php
-
-//Array con mensajes de Error para lavidar que los campos no se envien vacios
-$errores= [];
-
-$nombre = ''; //variables para valores temporales en el formulario
-$apellido = '';
-$identificacion = '';
-$usuario =  '';
-$id_cargo = '';
-
-// Ejecutar el codigo luego que el usuario envia el formulario.
-if ($_SERVER['REQUEST_METHOD']=== 'POST') {
-// echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
-// var_dump($_POST);
-// echo "</pre>";
-
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $identificacion = $_POST['identificacion'];
-    $usuario = $_POST['usuario'];
-    $id_cargo = $_POST['id_cargo'];
-    $fecha = date('Y/m/d');
-
-//Se valida el fomulario.
-    if (!$nombre){
-        $errores[]= "Debe colocar el Nombre";
-    }
-
-    if (!$apellido){
-        $errores[]= "Debe colocar el Apellido";
-    }
-
-    if (strlen ($identificacion) < 7){
-        $errores[]= "Debe colocar la Cedula corecta";
-    }
-
-    if (!$usuario){
-        $errores[]= "Debe colocar Nombre de usuario";
-    }
-
-    if (!$id_cargo){
-        $errores[]= "Debe elegir el Cargo";
-    }
-
-//Mostrar en formato Array lo que hay en la variable errores.
-// echo "<pre>";  
-// var_dump($errores);
-// echo "</pre>";   
-
-//Revisar que el array de errores este vacio para ejecutar el query
-    if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
-    
-# Insertar en la Bade de Datos
-$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
-
-//    echo $query; //Probar que envia el query
-
-$resultado = mysqli_query($db, $query);
-
-if ($resultado) {
-    echo "¡Insercion corracta!";
-}
-}
-} ?>
 
 <?php foreach($errores as $error): ?>
 <div class = " alerta error">
