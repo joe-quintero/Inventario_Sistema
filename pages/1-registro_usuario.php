@@ -34,6 +34,9 @@ $db = conectarDB();
     <!-- Custom Fonts -->
     <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <!-- Mis Estilos -->
+    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -157,12 +160,14 @@ $db = conectarDB();
 
 <?php
 
-// Mostrar lo que se envia por el metodo POST
+//Array con mensajes de Error para lavidar que los campos no se envien vacios
+$errores= [];  //Linea 176
 
+// Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
+//    echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
+//    var_dump($_POST);
+//    echo "</pre>";
 
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
@@ -170,22 +175,54 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     $usuario = $_POST['usuario'];
     $id_cargo = $_POST['id_cargo'];
 
-# Insertar en la Bade de Datos
+//Se valida el fomulario.
+    if (!$nombre){
+        $errores[]= "Debe colocar el Nombre";
+    }
 
-    $query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-    VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '2020-09-28')"; 
+    if (!$apellido){
+        $errores[]= "Debe colocar el Apellido";
+    }
+
+    if (strlen ($identificacion) < 7){
+        $errores[]= "Debe colocar la Cedula corecta";
+    }
+
+    if (!$usuario){
+        $errores[]= "Debe colocar Nombre de usuario";
+    }
+
+    if (!$id_cargo){
+        $errores[]= "Debe elegir el Cargo";
+    }
+
+//Mostrar en formato Array lo que hay en la variable errores.
+// echo "<pre>";  
+// var_dump($errores);
+// echo "</pre>";   
+
+//Revisar que el array de errores este vacio para ejecutar el query
+    if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
+    
+# Insertar en la Bade de Datos
+$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '2020-09-28')"; 
 
 //    echo $query; //Probar que envia el query
 
 $resultado = mysqli_query($db, $query);
 
-    if ($resultado) {
-        echo "¡Insercion corracta!";
-    }
+if ($resultado) {
+    echo "¡Insercion corracta!";
 }
+}
+} ?>
 
-?>
-
+<?php foreach($errores as $error): ?>
+<div class = " alerta error">
+    <?php echo $error; ?>
+</div>
+<?php endforeach; ?>
 
             <form class="formulario" method="POST" action="1-registro_usuario.php">
                 <fieldset>
@@ -205,7 +242,7 @@ $resultado = mysqli_query($db, $query);
                     <br>
                     <label for="id_cargo">Cargo</label>
                     <select name="id_cargo" id="id_cargo" name="id_cargo">
-                        <option value="0">Seleccionar</option>
+                        <option value="">---Seleccionar---</option>
                         <option value="2">Supervisor</option>
                         <option value="3">Vendedor</option>
                     </select>

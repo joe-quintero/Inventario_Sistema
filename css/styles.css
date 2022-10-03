@@ -1,0 +1,9 @@
+.error  {
+    background-color:rgb(161, 23, 23);
+    color: white;
+    padding: .5rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0.5rem 0;
+}
