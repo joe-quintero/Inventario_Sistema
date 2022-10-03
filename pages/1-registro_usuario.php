@@ -5,8 +5,7 @@ $db = conectarDB();
 
 //Consulta para optener cargo
 $consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
-$resultado = mysqli_query($db,$consultaCargos)
-
+$resultado = mysqli_query($db,$consultaCargos);
 
 ?>
 
@@ -176,15 +175,16 @@ $id_cargo = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
-//    echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
-//    var_dump($_POST);
-//    echo "</pre>";
+// echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
+// var_dump($_POST);
+// echo "</pre>";
 
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $identificacion = $_POST['identificacion'];
     $usuario = $_POST['usuario'];
     $id_cargo = $_POST['id_cargo'];
+    $fecha = date('Y/m/d');
 
 //Se valida el fomulario.
     if (!$nombre){
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     
 # Insertar en la Bade de Datos
 $query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '2020-09-28')"; 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
 
 //    echo $query; //Probar que envia el query
 
@@ -255,12 +255,12 @@ if ($resultado) {
                     <select name="id_cargo" id="id_cargo" name="id_cargo">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option value=" <?php echo $row ['id_cargo'] ?> "> <?php echo $row ['cargo'] ?> </option>
+                            <option   <?php echo $id_cargo === $row ['id_cargo'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_cargo'] ?>"> <?php echo $row ['cargo'] ?> </option>
                         <?php endwhile ?>
                     </select>
                 </fieldset>
 
-                <input type="submit" value="crear usuario" class="boton-envio"> 
+                <input type="submit" value="crear usuario" class="boton-envio">  
             </form>
 
         </div>
