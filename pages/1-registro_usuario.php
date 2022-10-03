@@ -161,7 +161,13 @@ $db = conectarDB();
 <?php
 
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
-$errores= [];  //Linea 176
+$errores= [];
+
+$nombre = ''; //variables para valores temporales en el formulario
+$apellido = '';
+$identificacion = '';
+$usuario =  '';
+$id_cargo = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -229,16 +235,16 @@ if ($resultado) {
                     <legend>Datos del Usuario</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario"> 
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
                     <br>
                     <label for="apellido">Apellido</label>
-                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario"> 
+                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
                     <br>
                     <label for="identificacion">Cedula</label>
-                    <input type="number" id= identificacion name="identificacion" placeholder="Cedula de identidad"> 
+                    <input type="number" id= identificacion name="identificacion" maxlength="10" placeholder="Cedula de identidad" value="<?php echo $identificacion; ?>"> 
                     <br>
                     <label for="usuario">Usuario</label>
-                    <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario"> 
+                    <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario" value="<?php echo $usuario; ?>"> 
                     <br>
                     <label for="id_cargo">Cargo</label>
                     <select name="id_cargo" id="id_cargo" name="id_cargo">
