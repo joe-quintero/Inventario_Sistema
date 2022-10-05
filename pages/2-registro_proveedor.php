@@ -3,19 +3,16 @@ require '../include/config/database.php';
 
 $db = conectarDB();
 
-//Consulta para optener cargo
-$consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
-$resultado = mysqli_query($db,$consultaCargos);
-
-
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
 $nombre = ''; //variables para valores temporales en el formulario
-$apellido = '';
-$identificacion = '';
-$usuario =  '';
-$id_cargo = '';
+$ci_rif = '';
+$preci_rif = '';
+$telefono =  '';
+$direccion = '';
+$tipo_producto = '';
+$direccion = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -24,31 +21,33 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 // echo "</pre>";
 
     $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
-    $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
-    $identificacion =mysqli_real_escape_string($db , $_POST['identificacion']);
-    $usuario =mysqli_real_escape_string($db , $_POST['usuario']);
-    $id_cargo =mysqli_real_escape_string($db , $_POST['id_cargo']);
+    $preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
+    $ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
+    $telefono =mysqli_real_escape_string($db , $_POST['telefono']);;
+    $direccion =mysqli_real_escape_string($db , $_POST['direccion']);
+    $tipo_producto =mysqli_real_escape_string($db , $_POST['tipo_producto']);
     $fecha = date('Y/m/d');
+
 
 //Se valida el fomulario.
     if (!$nombre){
         $errores[]= "Debe colocar el Nombre";
     }
 
-    if (!$apellido){
-        $errores[]= "Debe colocar el Apellido";
+    // if (!$preci_rif){
+    //     $errores[]= "Debe colocar tipo de documento";
+    // }
+
+    if (!$ci_rif){
+        $errores[]= "Debe colocar CI o RIF";
     }
 
-    if (strlen ($identificacion) < 7){
-        $errores[]= "Debe colocar la Cedula corecta";
+    if (!$telefono){
+        $errores[]= "Debe colocar Telefono de Contacto";
     }
 
-    if (!$usuario){
-        $errores[]= "Debe colocar Nombre de usuario";
-    }
-
-    if (!$id_cargo){
-        $errores[]= "Debe elegir el Cargo";
+    if (!$tipo_producto){
+        $errores[]= "Debe indicar el tipo de producto";
     }
 
 //Mostrar en formato Array lo que hay en la variable errores.
@@ -60,15 +59,15 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
+$query = "INSERT INTO proveedor (nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto, fecha) 
+VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_producto', '$fecha')"; 
 
 //    echo $query; //Probar que envia el query
 
-$resultado = mysqli_query($db, $query);
+    $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: http://localhost/tesis/Inventario_Sistema/pages/1-registro_usuario.php");
+    header("Location: C:\xampp\htdocs\Tesis\Inventario_Sistema\pages\2-registro_proveedor.php");
 }
 }
 }
@@ -236,36 +235,36 @@ if ($resultado) {
 </div>
 <?php endforeach; ?>
 
-            <form class="formulario" method="POST" action="1-registro_usuario.php">
+            <form class="formulario" method="POST" action="2-registro_proveedor.php">
                 <fieldset>
                     <legend>Datos del Usuario</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value=""> 
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
                     <br>
-                    <label for="apellido">CI - RIF</label>
-                    <select name="id_cargo" id="id_cargo" name="id_cargo">
+                    <label for="preci_rif">CI - RIF</label>
+                    <select name="preci_rif" id="preci_rif" name="preci_rif">
                         <option value="">-</option>
                         <option value="J">J</option>
                         <option value="G">G</option>
                         <option value="V">V</option>
                     </select>
-                    <input type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value=""> 
+                    <input type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
                     <br>
                     <label for="telefono">Telefono</label>
-                    <input type="text" id= telefono name="telefono" placeholder="0424-123-4567" value=""> 
+                    <input type="text" id= telefono name="telefono" placeholder="0424-123-4567" value="<?php echo $telefono ?>"> 
                     <br>
                     <label for="direccion">Direcion</label>
-                    <input type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value=""> 
+                    <input type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value="<?php echo $direccion ?>"> 
                     <br>
                     <label for="tipo_producto">Tipo de Producto</label>
-                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value=""> 
+                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value="<?php echo $tipo_producto ?>"> 
 
 
 
                 </fieldset>
 
-                <input type="submit" value="crear usuario" class="boton-envio">  
+                <input type="submit" value="Agregar Proveedor" Class="boton-envio">  
             </form>
 
         </div>
