@@ -70,7 +70,7 @@ VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC
 $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: http://localhost/tesis/Inventario_Sistema/pages/1-registro_usuario.php");
+    header("Location: 1-registro_usuario.php");
 }
 }
 }

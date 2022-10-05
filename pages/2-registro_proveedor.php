@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
         $errores[]= "Debe colocar el Nombre";
     }
 
-    // if (!$preci_rif){
-    //     $errores[]= "Debe colocar tipo de documento";
-    // }
+    if (!$preci_rif){
+        $errores[]= "Debe colocar tipo de documento";
+    }
 
     if (!$ci_rif){
         $errores[]= "Debe colocar CI o RIF";
@@ -59,15 +59,15 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "INSERT INTO proveedor (nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto, fecha) 
-VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_producto', '$fecha')"; 
+$query = "INSERT INTO proveedor (nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto, fecha, id_usuario_registro, nombre_Usuario) 
+VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_producto', '$fecha',2,'Joe')"; 
 
 //    echo $query; //Probar que envia el query
 
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: C:\xampp\htdocs\Tesis\Inventario_Sistema\pages\2-registro_proveedor.php");
+    header("Location: 2-registro_proveedor.php");
 }
 }
 }
