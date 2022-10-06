@@ -3,6 +3,10 @@ require '../include/config/database.php';
 
 $db = conectarDB();
 
+//Consulta para optener Proveedores
+$consultaProveedor = "SELECT * FROM proveedor";
+$resultado = mysqli_query($db,$consultaProveedor);
+
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
@@ -14,6 +18,7 @@ $precio_venta = '';
 $descripcion = '';
 $aplicacion = '';
 $codigo_barra = '';
+$id_proveedor = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -29,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     $descripcion =mysqli_real_escape_string($db , $_POST['descripcion']);
     $aplicacion =mysqli_real_escape_string($db , $_POST['aplicacion']);
     $codigo_barra =mysqli_real_escape_string($db , $_POST['codigo_barra']);
+    $id_proveedor =mysqli_real_escape_string($db , $_POST['id_proveedor']);
+
     $fecha = date('Y/m/d');
 
 
@@ -57,6 +64,10 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
         $errores[]= "Debe indicar la aplicacion del producto";
     }
 
+    if (!$id_proveedor){
+        $errores[]= "Debe seleccionar el proveedor del producto";
+    }
+
 //Mostrar en formato Array lo que hay en la variable errores.
 // echo "<pre>";  
 // var_dump($errores);
@@ -66,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "INSERT INTO productos(nombre, tipo_producto, marca, precio_costo, precio_venta, descripcion, aplicacion, codigo_barra, fecha_creacion, id_proveedor, nombre_proveedor, id_usuario, usuario) VALUES ('$nombre', '$tipo_producto', '$marca', '$precio_costo', '$precio_venta', '$descripcion', '$aplicacion', '$codigo_barra', '$fecha', 1, 'Ultra Lub', 2, 'jdquintero')"; 
+$query = "INSERT INTO productos(nombre, tipo_producto, marca, precio_costo, precio_venta, descripcion, aplicacion, codigo_barra, fecha_creacion, id_proveedor, nombre_proveedor, id_usuario, usuario) VALUES ('$nombre', '$tipo_producto', '$marca', '$precio_costo', '$precio_venta', '$descripcion', '$aplicacion', '$codigo_barra', '$fecha', $id_proveedor, '$nombreProveedor', 2, 'jdquintero')"; 
 
 //    echo $query; //Probar que envia el query
 
@@ -255,10 +266,10 @@ if ($resultado) {
                     <input type="text" id= marca name="marca" placeholder="Ultra Lub" value="<?php echo $marca ?>"> 
                     <br>
                     <label for="precio_costo">Precio de Costo</label>
-                    <input type="text" id= precio_costo name="precio_costo" placeholder="10" value="<?php echo $precio_costo ?>"> 
+                    <input type="number" id= precio_costo name="precio_costo" placeholder="10" value="<?php echo $precio_costo ?>"> 
                     <br>
                     <label for="precio_venta">Precio de venta</label>
-                    <input type="text" id= precio_venta name="precio_venta" placeholder="11" value="<?php echo $precio_venta ?>"> 
+                    <input type="number" id= precio_venta name="precio_venta" placeholder="11" value="<?php echo $precio_venta ?>"> 
                     <br>
                     <label for="descripcion">Descripcion</label>
                     <input type="text" id= descripcion name="descripcion" placeholder="Aceite mineral para motor" value="<?php echo $descripcion ?>"> 
@@ -267,8 +278,17 @@ if ($resultado) {
                     <input type="text" id= aplicacion name="aplicacion" placeholder="Carro, Moto, Corolla" value="<?php echo $aplicacion ?>"> 
                     <br>
                     <label for="codigo_barra">Codigo de Barra</label>
-                    <input type="text" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
+                    <input type="number" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
                     <br>
+                    <label for="id_proveedor">Proveedor</label>
+                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor">
+                        <option value="">---Seleccionar---</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
+                            <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"> <?php echo $row ['nombre']." - ".$row ['preci_rif'].$row ['ci_rif'] ?> </option>
+                            <?php $id_proveedor === $row ['id_proveedor'];
+                            $nombreProveedor=$row ['nombre']; ?>
+                        <?php endwhile ?> 
+                    </select>
                 </fieldset>
 
                 <input type="submit" value="Agregar Proveedor" Class="boton-envio">  
