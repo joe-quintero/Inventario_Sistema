@@ -4,21 +4,18 @@ require '../include/config/database.php';
 $db = conectarDB();
 
 //Consulta para optener Proveedores
-$consultaProveedor = "SELECT * FROM proveedor";
-$resultado = mysqli_query($db,$consultaProveedor);
+//$consultaProveedor = "SELECT * FROM proveedor";
+//$resultado = mysqli_query($db,$consultaProveedor);
 
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
-$nombre = ''; //variables para valores temporales en el formulario
-$tipo_producto = '';
-$marca = '';
-$precio_costo =  '';
-$precio_venta = '';
-$descripcion = '';
-$aplicacion = '';
-$codigo_barra = '';
-$id_proveedor = '';
+$preci_rif = ''; //variables para valores temporales en el formulario
+$ci_rif = '';
+$nombre = '';
+$apellido =  '';
+$telefono = '';
+$direccion = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -26,47 +23,37 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 // var_dump($_POST);
 // echo "</pre>";
 
+    $preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
+    $ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
     $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
-    $tipo_producto =mysqli_real_escape_string($db , $_POST['tipo_producto']);
-    $marca =mysqli_real_escape_string($db , $_POST['marca']);
-    $precio_costo =mysqli_real_escape_string($db , $_POST['precio_costo']);
-    $precio_venta =mysqli_real_escape_string($db , $_POST['precio_venta']);
-    $descripcion =mysqli_real_escape_string($db , $_POST['descripcion']);
-    $aplicacion =mysqli_real_escape_string($db , $_POST['aplicacion']);
-    $codigo_barra =mysqli_real_escape_string($db , $_POST['codigo_barra']);
-    $id_proveedor =mysqli_real_escape_string($db , $_POST['id_proveedor']);
+    $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
+    $telefono =mysqli_real_escape_string($db , $_POST['telefono']);
+    $direccion =mysqli_real_escape_string($db , $_POST['direccion']);
 
     $fecha = date('Y/m/d');
 
 
 //Se valida el fomulario.
+    if (!$preci_rif){
+        $errores[]= "Debe colocar tipo de Documento";
+    }
+
+    if (!$ci_rif){
+        $errores[]= "Debe colocar la cedula o RIF del cleinte";
+    }
+
     if (!$nombre){
-        $errores[]= "Debe colocar el Nombre";
+        $errores[]= "Debe colocar nombre del cliente";
     }
 
-    if (!$tipo_producto){
-        $errores[]= "Debe colocar el tipo de producto";
+    if (!$telefono){
+        $errores[]= "Debe indicar el numero de telefono";
     }
 
-    if (!$marca){
-        $errores[]= "Debe colocar la marca";
+    if (!$direccion){
+        $errores[]= "Debe indicar la direccion del cliente";
     }
 
-    if (!$precio_costo){
-        $errores[]= "Debe indicar el precio de costo";
-    }
-
-    if (!$precio_venta){
-        $errores[]= "Debe indicar el precio de venta";
-    }
-
-    if (!$aplicacion){
-        $errores[]= "Debe indicar la aplicacion del producto";
-    }
-
-    if (!$id_proveedor){
-        $errores[]= "Debe seleccionar el proveedor del producto";
-    }
 
 //Mostrar en formato Array lo que hay en la variable errores.
 // echo "<pre>";  
@@ -77,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "INSERT INTO productos(nombre, tipo_producto, marca, precio_costo, precio_venta, descripcion, aplicacion, codigo_barra, fecha_creacion, id_proveedor, nombre_proveedor, id_usuario, usuario) VALUES ('$nombre', '$tipo_producto', '$marca', '$precio_costo', '$precio_venta', '$descripcion', '$aplicacion', '$codigo_barra', '$fecha', $id_proveedor, '$nombreProveedor', 2, 'jdquintero')"; 
+$query = "INSERT INTO clientes(ci_rif, preci_rif, nombre, apellido, telefono, direccion, id_usuario_registro, fecha) VALUES ('$ci_rif','$preci_rif','$nombre','$apellido','$telefono','$direccion',2,'$fecha')"; 
 
 //    echo $query; //Probar que envia el query
 
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 3-registro_productos.php");
+    header("Location: 4-registro_clientes.php");
 }
 }
 }
@@ -241,7 +228,7 @@ if ($resultado) {
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Proveedores</h1>
+                    <h1 class="page-header">Registro de Clientes</h1>
                 </div>
             </div>
 
@@ -252,44 +239,37 @@ if ($resultado) {
 </div>
 <?php endforeach; ?>
 
-            <form class="formulario" method="POST" action="3-registro_productos.php">
-                <fieldset>
-                    <legend>Datos del Usuario</legend>
+            <form class="formulario" method="POST" action="4-registro_clientes.php">
+            <fieldset>
 
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>"> 
+                    <legend>Datos del Cliente</legend>
+
                     <br>
-                    <label for="tipo_producto">Tipo de Producto</label>
-                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite 20-50 Minaral" value="<?php echo $tipo_producto ?>"> 
-                    <br>
-                    <label for="marca">Marca</label>
-                    <input type="text" id= marca name="marca" placeholder="Ultra Lub" value="<?php echo $marca ?>"> 
-                    <br>
-                    <label for="precio_costo">Precio de Costo</label>
-                    <input type="number" id= precio_costo name="precio_costo" placeholder="10" value="<?php echo $precio_costo ?>"> 
-                    <br>
-                    <label for="precio_venta">Precio de venta</label>
-                    <input type="number" id= precio_venta name="precio_venta" placeholder="11" value="<?php echo $precio_venta ?>"> 
-                    <br>
-                    <label for="descripcion">Descripcion</label>
-                    <input type="text" id= descripcion name="descripcion" placeholder="Aceite mineral para motor" value="<?php echo $descripcion ?>"> 
-                    <br>
-                    <label for="aplicacion">Aplicacion</label>
-                    <input type="text" id= aplicacion name="aplicacion" placeholder="Carro, Moto, Corolla" value="<?php echo $aplicacion ?>"> 
-                    <br>
-                    <label for="codigo_barra">Codigo de Barra</label>
-                    <input type="number" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
-                    <br>
-                    <label for="id_proveedor">Proveedor</label>
-                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor">
-                        <option value="">---Seleccionar---</option>
-                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"> <?php echo $row ['nombre']." - ".$row ['preci_rif'].$row ['ci_rif'] ?> </option>
-                        <?php endwhile ?> 
+                    <label for="preci_rif">CI - RIF</label>
+                    <select name="preci_rif" id="preci_rif" name="preci_rif">
+                        <option value="">-</option>
+                        <option value="V">V</option>
+                        <option value="J">J</option>
+                        <option value="G">G</option>
                     </select>
+                    <input type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+                    <br>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+                    <br>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido ?>"> 
+                    <br>
+                    <label for="telefono">Telefono</label>
+                    <input type="text" id= telefono name="telefono" placeholder="0424-123-1212" value="<?php echo $telefono ?>"> 
+                    <br>
+                    <label for="direccion">Direcion</label>
+                    <input type="text" id= direccion name="direccion" placeholder="San Bernardino..." value="<?php echo $direccion ?>"> 
+
+
                 </fieldset>
 
-                <input type="submit" value="Agregar Proveedor" Class="boton-envio">  
+                <input type="submit" value="Agregar Cliente" Class="boton-envio">  
             </form>
 
         </div>
