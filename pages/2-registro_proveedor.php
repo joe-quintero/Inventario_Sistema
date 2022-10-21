@@ -1,4 +1,6 @@
 <?php
+
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
 $db = conectarDB();
@@ -67,7 +69,7 @@ VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_pr
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 2-registro_proveedor.php");
+    header("Location: 2-registro_proveedor.php?mensaje=1");
 }
 }
 }
@@ -234,6 +236,10 @@ if ($resultado) {
     <?php echo $error; ?>
 </div>
 <?php endforeach; ?>
+
+<?php if (intval($mensaje)===1): //Mensaje de exitodo mostrando ?>
+    <p class="alerta exito">¡Proveedor creado exitosamente!</p> 
+<?php endif; ?>
 
             <form class="formulario" method="POST" action="2-registro_proveedor.php">
                 <fieldset>
