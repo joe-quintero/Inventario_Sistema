@@ -1,4 +1,6 @@
 <?php
+
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
 $db = conectarDB();
@@ -84,7 +86,7 @@ $query = "INSERT INTO productos(nombre, tipo_producto, marca, precio_costo, prec
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 3-registro_productos.php");
+    header("Location: 3-registro_productos.php?mensaje=1");
 }
 }
 }
@@ -241,7 +243,7 @@ if ($resultado) {
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Proveedores</h1>
+                    <h1 class="page-header">Registro de Productos</h1>
                 </div>
             </div>
 
@@ -251,6 +253,10 @@ if ($resultado) {
     <?php echo $error; ?>
 </div>
 <?php endforeach; ?>
+
+<?php if (intval($mensaje)===1): //Mensaje de exitodo mostrando ?>
+    <p class="alerta exito">¡Producto creado exitosamente!</p> 
+<?php endif; ?>
 
             <form class="formulario" method="POST" action="3-registro_productos.php">
                 <fieldset>
