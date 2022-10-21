@@ -17,3 +17,20 @@
     text-transform: uppercase;
     margin: 0.5rem 0;
 }
+
+.propiedades{
+    margin-top: 40px;
+    width: 100%;
+    border-spacing: 0;
+}
+
+thead{
+    background-color: #f30e06;
+}
+
+th{
+    background-color: #6ccdfd;
+    padding: 10px;
+    text-align: center;
+}
+
