@@ -1,4 +1,6 @@
 <?php
+
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
 $db = conectarDB();
@@ -71,7 +73,7 @@ $query = "INSERT INTO clientes(ci_rif, preci_rif, nombre, apellido, telefono, di
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 4-registro_clientes.php");
+    header("Location: 4-registro_clientes.php?mensaje=1");
 }
 }
 }
@@ -238,6 +240,10 @@ if ($resultado) {
     <?php echo $error; ?>
 </div>
 <?php endforeach; ?>
+
+<?php if (intval($mensaje)===1): //Mensaje de exitodo mostrando ?>
+    <p class="alerta exito">¡Cliente creado exitosamente!</p> 
+<?php endif; ?>
 
             <form class="formulario" method="POST" action="4-registro_clientes.php">
             <fieldset>
