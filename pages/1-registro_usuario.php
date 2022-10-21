@@ -1,4 +1,6 @@
 <?php
+
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
 $db = conectarDB();
@@ -70,7 +72,7 @@ VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC
 $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 1-registro_usuario.php");
+    header("Location: 1-registro_usuario.php?mensaje=1"); //Al guardar se envia por la url el mensajed e guardado
 }
 }
 }
@@ -237,6 +239,10 @@ if ($resultado) {
     <?php echo $error; ?>
 </div>
 <?php endforeach; ?>
+
+<?php if (intval($mensaje)===1): //Mensaje de exitodo mostrando ?>
+    <p class="alerta exito">¡Usuario creado exitosamente!</p> 
+<?php endif; ?>
 
             <form class="formulario" method="POST" action="1-registro_usuario.php">
                 <fieldset>
