@@ -5,7 +5,7 @@ require '../include/config/database.php';
 $db= conectarDB();
 
 //Query
-$query ="SELECT id_proveedor, nombre, preci_rif, ci_rif, telefono, direccion, tipo_producto from PROVEEDOR";
+$query ="SELECT ci_rif, preci_rif, nombre, apellido, telefono, direccion FROM clientes";
 
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
@@ -161,20 +161,19 @@ $resultado = mysqli_query($db,$query);
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Proveedores</h1>
+                    <h1 class="page-header">Clientes</h1>
                 </div>
                 <div>
                     <table class="propiedades">
                         <thead>
                             <tr>
-                                <th>ID Proveedor</th>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>CI RIF</th>
-                                <th>Telefono</th>
-                                <th>Dirección</th>
-                                <th>Tipo Producto</th>
-                                <th>Acciones</th>
+                            <th>Documento</th>
+                            <th>CI - RIF</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Telefono</th>
+                            <th>Direccion</th>
+                            <th>Acciones</th>
                             </tr>   
                         </thead>
                         <tbody> <!-- Mostramos los resultados del Query -->
@@ -182,13 +181,12 @@ $resultado = mysqli_query($db,$query);
                             <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
                             
                             <tr>
-                                <td> <?php echo $usuario ['id_proveedor']; ?> </td>
-                                <td> <?php echo $usuario ['nombre']; ?> </td>
                                 <td> <?php echo $usuario ['preci_rif']; ?> </td>
                                 <td> <?php echo $usuario ['ci_rif']; ?> </td>
+                                <td> <?php echo $usuario ['nombre']; ?> </td>
+                                <td> <?php echo $usuario ['apellido']; ?> </td>
                                 <td> <?php echo $usuario ['telefono']; ?> </td>
                                 <td> <?php echo $usuario ['direccion']; ?> </td>
-                                <td> <?php echo $usuario ['tipo_producto']; ?> </td>
                                 <td>
                                     <a href="#">Editar</a>
                                     <a href="#">Suspender</a>
