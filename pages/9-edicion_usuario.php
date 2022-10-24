@@ -1,14 +1,91 @@
 <?php
+
+//Validar que sea un ID valido
+$id = $_GET['id'];
+$id = filter_var($id, FILTER_VALIDATE_INT); 
+
+if (!$id) {
+    header('location: 5-usuarios.php');
+}
+
 //Importamos conexion Base de Datos
 require '../include/config/database.php';
 
-$db= conectarDB();
+//Conexion Base de Datos
+$db = conectarDB();
 
-//Query
-$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo from USUARIOS";
+//Consulta para optener cargo
+$consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
+$resultado = mysqli_query($db,$consultaCargos);
 
-//Consulta Base de Datos
-$resultado = mysqli_query($db,$query);
+
+
+
+//Array con mensajes de Error para lavidar que los campos no se envien vacios
+$errores= [];
+
+$nombre = ''; //variables para valores temporales en el formulario
+$apellido = '';
+$identificacion = '';
+$usuario =  '';
+$id_cargo = '';
+
+// Ejecutar el codigo luego que el usuario envia el formulario.
+if ($_SERVER['REQUEST_METHOD']=== 'POST') {
+// echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
+// var_dump($_POST);
+// echo "</pre>";
+
+    $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
+    $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
+    $identificacion =mysqli_real_escape_string($db , $_POST['identificacion']);
+    $usuario =mysqli_real_escape_string($db , $_POST['usuario']);
+    $id_cargo =mysqli_real_escape_string($db , $_POST['id_cargo']);
+    $fecha = date('Y/m/d');
+
+//Se valida el fomulario.
+    if (!$nombre){
+        $errores[]= "Debe colocar el Nombre";
+    }
+
+    if (!$apellido){
+        $errores[]= "Debe colocar el Apellido";
+    }
+
+    if (strlen ($identificacion) < 7){
+        $errores[]= "Debe colocar la Cedula corecta";
+    }
+
+    if (!$usuario){
+        $errores[]= "Debe colocar Nombre de usuario";
+    }
+
+    if (!$id_cargo){
+        $errores[]= "Debe elegir el Cargo";
+    }
+
+//Mostrar en formato Array lo que hay en la variable errores.
+// echo "<pre>";  
+// var_dump($errores);
+// echo "</pre>";   
+
+//Revisar que el array de errores este vacio para ejecutar el query
+    if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
+    
+# Insertar en la Bade de Datos
+$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
+
+//    echo $query; //Probar que envia el query
+
+$resultado = mysqli_query($db, $query);
+
+if ($resultado) {
+    header("Location: 1-registro_usuario.php?mensaje=1"); //Al guardar se envia por la url el mensajed e guardado
+}
+}
+}
+
 
 ?>
 
@@ -161,54 +238,50 @@ $resultado = mysqli_query($db,$query);
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Usuarios</h1>
-                </div>
-                <div>
-                    <table class="propiedades">
-                        <thead>
-                            <tr>
-                                <th>ID Usuario</th>
-                                <th>Usuario</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Identificacion</th>
-                                <th>Cargo</th>
-                                <th>Acciones</th>
-                            </tr>   
-                        </thead>
-                        <tbody> <!-- Mostramos los resultados del Query -->
-                            
-                            <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
-                            
-                            <tr>
-                                <td> <?php echo $usuario ['id_usuario']; ?> </td>
-                                <td> <?php echo $usuario ['usuario']; ?> </td>
-                                <td> <?php echo $usuario ['nombre']; ?> </td>
-                                <td> <?php echo $usuario ['apellido']; ?> </td>
-                                <td> <?php echo $usuario ['identificacion']; ?> </td>
-                                <td> <?php echo $usuario ['id_cargo']; ?> </td>
-                                <td>
-                                    <a href="9-edicion_usuario.php?id=<?php echo $usuario ['id_usuario'];?>">Editar</a>
-                                    <a href="#">Suspender</a>
-                                    <a href="#">Recetear</a>
-                                    <a href="#">Elimina</a>
-                                </td>
-                            </tr>
-
-                            <?php endwhile ?>
-
-                        </tbody>
-                    </table>
+                    <h1 class="page-header">Actualizar Usuario</h1>
                 </div>
             </div>
+
+
+<?php foreach($errores as $error): ?>
+<div class = " alerta error">
+    <?php echo $error; ?>
+</div>
+<?php endforeach; ?>
+
+
+            <form class="formulario" method="POST" action="1-registro_usuario.php">
+                <fieldset>
+                    <legend>Datos del Usuario</legend>
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
+                    <br>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
+                    <br>
+                    <label for="identificacion">Cedula</label>
+                    <input type="number" id= identificacion name="identificacion" maxlength="10" placeholder="Cedula de identidad" value="<?php echo $identificacion; ?>"> 
+                    <br>
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario" value="<?php echo $usuario; ?>"> 
+                    <br>
+                    <label for="id_cargo">Cargo</label>
+                    <select name="id_cargo" id="id_cargo" name="id_cargo">
+                        <option value="">---Seleccionar---</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
+                            <option   <?php echo $id_cargo === $row ['id_cargo'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_cargo'] ?>"> <?php echo $row ['cargo'] ?> </option>
+                        <?php endwhile ?>
+                    </select>
+                </fieldset>
+
+                <input type="submit" value="Actualizar Usuario" class="boton-envio">  
+            </form>
 
         </div>
     </div>
 
 </div>
-
-<!--cierre de la conexion-->
-<?php mysqli_close($db); ?>
 
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script>
