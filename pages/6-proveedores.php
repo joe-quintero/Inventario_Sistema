@@ -5,7 +5,7 @@ require '../include/config/database.php';
 $db= conectarDB();
 
 //Query
-$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo from USUARIOS";
+$query ="SELECT id_proveedor, nombre, preci_rif, ci_rif, telefono, direccion, tipo_producto from PROVEEDOR";
 
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
@@ -167,12 +167,13 @@ $resultado = mysqli_query($db,$query);
                     <table class="propiedades">
                         <thead>
                             <tr>
-                                <th>ID Usuario</th>
-                                <th>Usuario</th>
+                                <th>ID Proveedor</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Identificacion</th>
-                                <th>Cargo</th>
+                                <th>Documento</th>
+                                <th>CI RIF</th>
+                                <th>Telefono</th>
+                                <th>Dirección</th>
+                                <th>Tipo Producto</th>
                                 <th>Acciones</th>
                             </tr>   
                         </thead>
@@ -181,12 +182,13 @@ $resultado = mysqli_query($db,$query);
                             <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
                             
                             <tr>
-                                <td> <?php echo $usuario ['id_usuario']; ?> </td>
-                                <td> <?php echo $usuario ['usuario']; ?> </td>
+                                <td> <?php echo $usuario ['id_proveedor']; ?> </td>
                                 <td> <?php echo $usuario ['nombre']; ?> </td>
-                                <td> <?php echo $usuario ['apellido']; ?> </td>
-                                <td> <?php echo $usuario ['identificacion']; ?> </td>
-                                <td> <?php echo $usuario ['id_cargo']; ?> </td>
+                                <td> <?php echo $usuario ['preci_rif']; ?> </td>
+                                <td> <?php echo $usuario ['ci_rif']; ?> </td>
+                                <td> <?php echo $usuario ['telefono']; ?> </td>
+                                <td> <?php echo $usuario ['direccion']; ?> </td>
+                                <td> <?php echo $usuario ['tipo_producto']; ?> </td>
                                 <td>
                                     <a href="#">Editar</a>
                                     <a href="#">Suspender</a>
