@@ -1,6 +1,14 @@
 <?php
+//Importamos conexion Base de Datos
 require '../include/config/database.php';
 
+$db= conectarDB();
+
+//Query
+$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo from USUARIOS";
+
+//Consulta Base de Datos
+$resultado = mysqli_query($db,$query);
 
 ?>
 
@@ -166,52 +174,30 @@ require '../include/config/database.php';
                                 <th>Identificacion</th>
                                 <th>Cargo</th>
                                 <th>Acciones</th>
-                            </tr>
+                            </tr>   
                         </thead>
-                        <body>
+                        <tbody> <!-- Mostramos los resultados del Query -->
+                            
+                            <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
+                            
                             <tr>
-                                <td>1</td>
-                                <td>joquintero</td>
-                                <td>Joe</td>
-                                <td>Quintero</td>
-                                <td>27333857</td>
-                                <td>Vendedor</td>
+                                <td> <?php echo $usuario ['id_usuario']; ?> </td>
+                                <td> <?php echo $usuario ['usuario']; ?> </td>
+                                <td> <?php echo $usuario ['nombre']; ?> </td>
+                                <td> <?php echo $usuario ['apellido']; ?> </td>
+                                <td> <?php echo $usuario ['identificacion']; ?> </td>
+                                <td> <?php echo $usuario ['id_cargo']; ?> </td>
                                 <td>
-                                    <a href="">Editar</a>
-                                    <a href="">Suspender</a>
-                                    <a href="">Recetear</a>
-                                    <a href="">Elimina</a>
+                                    <a href="#">Editar</a>
+                                    <a href="#">Suspender</a>
+                                    <a href="#">Recetear</a>
+                                    <a href="#">Elimina</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>joquintero</td>
-                                <td>Joe</td>
-                                <td>Quintero</td>
-                                <td>27333857</td>
-                                <td>Vendedor</td>
-                                <td>
-                                    <a href="">Editar</a>
-                                    <a href="">Suspender</a>
-                                    <a href="">Recetear</a>
-                                    <a href="">Elimina</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>joquintero</td>
-                                <td>Joe</td>
-                                <td>Quintero</td>
-                                <td>27333857</td>
-                                <td>Vendedor</td>
-                                <td>
-                                    <a href="">Editar</a>
-                                    <a href="">Suspender</a>
-                                    <a href="">Recetear</a>
-                                    <a href="">Elimina</a>
-                                </td>
-                            </tr>
-                        </body>
+
+                            <?php endwhile ?>
+
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -220,6 +206,8 @@ require '../include/config/database.php';
     </div>
 
 </div>
+
+<!--cierre de la conexion-->
 
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script>
