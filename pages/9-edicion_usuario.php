@@ -14,6 +14,11 @@ require '../include/config/database.php';
 //Conexion Base de Datos
 $db = conectarDB();
 
+//Consulta para optener informacion de Usuario
+$consulta = "SELECT usuario, nombre, apellido, identificacion, id_cargo FROM usuarios WHERE id_usuario = ${id}";
+$resultado = mysqli_query($db, $consulta);
+$consultaUsuarios = mysqli_fetch_assoc($resultado);
+
 //Consulta para optener cargo
 $consultaCargos = "SELECT * FROM cargo WHERE id_cargo <> 1";
 $resultado = mysqli_query($db,$consultaCargos);
@@ -24,11 +29,11 @@ $resultado = mysqli_query($db,$consultaCargos);
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
-$nombre = ''; //variables para valores temporales en el formulario
-$apellido = '';
-$identificacion = '';
-$usuario =  '';
-$id_cargo = '';
+$nombre = $consultaUsuarios['nombre']; //variables para valores temporales en el formulario
+$apellido = $consultaUsuarios['apellido'];
+$identificacion = $consultaUsuarios['identificacion'];
+$usuario = $consultaUsuarios['usuario'];
+$id_cargo = $consultaUsuarios['id_cargo'];
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
