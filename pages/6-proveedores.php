@@ -169,7 +169,7 @@ $resultado = mysqli_query($db,$query);
         </div>
 
         <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
-        <p class="alerta exito">Proveedor actualizado exitosamente!</p> 
+        <p class="alerta exito">¡Proveedor actualizado exitosamente!</p> 
         <?php endif; ?>
 
         <div>

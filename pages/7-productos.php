@@ -1,4 +1,6 @@
 <?php
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
+
 //Importamos conexion Base de Datos
 require '../include/config/database.php';
 
@@ -163,55 +165,57 @@ $resultado = mysqli_query($db,$query);
                 <div class="col-lg-12">
                     <h1 class="page-header">Productos</h1>
                 </div>
-                <div>
-                    <table class="propiedades">
-                        <thead>
-                            <tr>
-                            <th>ID Producto</th>
-                            <th>Nombre</th>
-                            <th>Tipo Producto</th>
-                            <th>Marca</th>
-                            <th>Precio Costo</th>
-                            <th>Precio Venta</th>
-                            <th>Descripcion</th>
-                            <th>Aplicacion</th>
-                            <th>Codigo de Barra</th>
-                            <th>ID Proveedor</th>
-                            <th>Nombre Proveedor</th>
-                            </tr>   
-                        </thead>
-                        <tbody> <!-- Mostramos los resultados del Query -->
-                            
-                            <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
-                            
-                            <tr>
-                                <td> <?php echo $usuario ['id_producto']; ?> </td>
-                                <td> <?php echo $usuario ['nombre']; ?> </td>
-                                <td> <?php echo $usuario ['tipo_producto']; ?> </td>
-                                <td> <?php echo $usuario ['marca']; ?> </td>
-                                <td> <?php echo $usuario ['precio_costo']; ?> </td>
-                                <td> <?php echo $usuario ['precio_venta']; ?> </td>
-                                <td> <?php echo $usuario ['descripcion']; ?> </td>
-                                <td> <?php echo $usuario ['aplicacion']; ?> </td>
-                                <td> <?php echo $usuario ['codigo_barra']; ?> </td>
-                                <td> <?php echo $usuario ['fecha_creacion']; ?> </td>
-                                <td> <?php echo $usuario ['id_proveedor']; ?> </td>
-                                <td> <?php echo $usuario ['nombre_proveedor']; ?> </td>
-                                <td>
-                                    <a href="#">Editar</a>
-                                    <a href="#">Suspender</a>
-                                    <a href="#">Recetear</a>
-                                    <a href="#">Elimina</a>
-                                </td>
-                            </tr>
-
-                            <?php endwhile ?>
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
+        </div>
 
+        <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">¡Productos actualizado exitosamente!</p> 
+        <?php endif; ?>
+
+        <div>
+            <table class="propiedades">
+                <thead>
+                    <tr>
+                    <th>ID Producto</th>
+                    <th>Nombre</th>
+                    <th>Tipo Producto</th>
+                    <th>Marca</th>
+                    <th>Precio Costo</th>
+                    <th>Precio Venta</th>
+                    <th>Descripcion</th>
+                    <th>Aplicacion</th>
+                    <th>Codigo de Barra</th>
+                    <th>ID Proveedor</th>
+                    <th>Nombre Proveedor</th>
+                    <th>Accion</th>
+                    </tr>   
+                </thead>
+                <tbody> <!-- Mostramos los resultados del Query -->
+                    
+                    <?php while($producto = mysqli_fetch_assoc($resultado)): ?>
+                    
+                    <tr>
+                        <td> <?php echo $producto ['id_producto']; ?> </td>
+                        <td> <?php echo $producto ['nombre']; ?> </td>
+                        <td> <?php echo $producto ['tipo_producto']; ?> </td>
+                        <td> <?php echo $producto ['marca']; ?> </td>
+                        <td> <?php echo $producto ['precio_costo']; ?> </td>
+                        <td> <?php echo $producto ['precio_venta']; ?> </td>
+                        <td> <?php echo $producto ['descripcion']; ?> </td>
+                        <td> <?php echo $producto ['aplicacion']; ?> </td>
+                        <td> <?php echo $producto ['codigo_barra']; ?> </td>
+                        <td> <?php echo $producto ['id_proveedor']; ?> </td>
+                        <td> <?php echo $producto ['nombre_proveedor']; ?> </td>
+                        <td>
+                        <a href="11-edicion_productos.php?id=<?php echo $producto ['id_producto'];?>">Editar</a>
+                            <a href="#">Elimina</a>
+                        </td>
+                    </tr>
+
+                    <?php endwhile ?>
+
+                </tbody>
+            </table>
         </div>
     </div>
 
