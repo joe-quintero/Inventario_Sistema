@@ -1,15 +1,93 @@
 <?php
-$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
+
+//Validar que sea un ID valido
+$id = $_GET['id'];
+$id = filter_var($id, FILTER_VALIDATE_INT); 
+
+if (!$id) {
+    header('location: 6-proveedores.php');
+}
+
 //Importamos conexion Base de Datos
 require '../include/config/database.php';
 
-$db= conectarDB();
+//Conexion Base de Datos
+$db = conectarDB();
 
-//Query
-$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo from USUARIOS";
+//Consulta para optener informacion de proveedores
+$consulta = "SELECT nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto  FROM proveedor WHERE id_proveedor = ${id}";
+$resultado = mysqli_query($db, $consulta);
+$consultaProveedores = mysqli_fetch_assoc($resultado);
 
-//Consulta Base de Datos
-$resultado = mysqli_query($db,$query);
+//Array con mensajes de Error para lavidar que los campos no se envien vacios
+$errores= [];
+
+$nombre = $consultaProveedores['nombre']; //variables para valores temporales en el formulario
+$ci_rif = $consultaProveedores['ci_rif'];
+$preci_rif = $consultaProveedores['preci_rif'];
+$telefono = $consultaProveedores['telefono'];
+$direccion = $consultaProveedores['direccion'];
+$tipo_producto = $consultaProveedores['tipo_producto'];
+
+// Ejecutar el codigo luego que el usuario envia el formulario.
+if ($_SERVER['REQUEST_METHOD']=== 'POST') {
+// echo "<pre>";  //Mostrar en formato Array lo que se envia a la BD
+// var_dump($_POST);
+// echo "</pre>";
+
+    $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
+    $preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
+    $ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
+    $telefono =mysqli_real_escape_string($db , $_POST['telefono']);;
+    $direccion =mysqli_real_escape_string($db , $_POST['direccion']);
+    $tipo_producto =mysqli_real_escape_string($db , $_POST['tipo_producto']);
+    $fecha = date('Y/m/d');
+
+
+//Se valida el fomulario.
+    if (!$nombre){
+        $errores[]= "Debe colocar el Nombre";
+    }
+
+    if (!$preci_rif){
+        $errores[]= "Debe colocar tipo de documento";
+    }
+
+    if (!$ci_rif){
+        $errores[]= "Debe colocar CI o RIF";
+    }
+
+    if (!$telefono){
+        $errores[]= "Debe colocar Telefono de Contacto";
+    }
+
+    if (!$tipo_producto){
+        $errores[]= "Debe indicar el tipo de producto";
+    }
+
+//Mostrar en formato Array lo que hay en la variable errores.
+// echo "<pre>";  
+// var_dump($errores);
+// echo "</pre>";   
+
+//Revisar que el array de errores este vacio para ejecutar el query
+    if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
+    
+# Insertar en la Bade de Datos
+$query = "UPDATE proveedor SET nombre='${nombre}',ci_rif=${ci_rif},preci_rif='${preci_rif}',telefono='${telefono}',direccion='${direccion}',tipo_producto='${tipo_producto}' WHERE id_proveedor = ${id}";
+
+//echo $query; //Probar que envia el query
+
+//exit;
+
+    $resultado = mysqli_query($db, $query);
+
+if ($resultado) {
+    header("Location: 6-proveedores.php?mensaje=2"); //Al guardar se envia por la url el mensajed e guardado
+}
+}
+}
+
 
 ?>
 
@@ -162,59 +240,62 @@ $resultado = mysqli_query($db,$query);
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Usuarios</h1>
+                    <h1 class="page-header">Registro de Proveedores</h1>
                 </div>
             </div>
-        </div>
 
-        <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
-        <p class="alerta exito">¡Usuario actualizado exitosamente!</p> 
-        <?php endif; ?>
-            
-        <div>
-            <table class="propiedades">
-                        <thead>
-                            <tr>
-                                <th>ID Usuario</th>
-                                <th>Usuario</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Identificacion</th>
-                                <th>Cargo</th>
-                                <th>Acciones</th>
-                            </tr>   
-                        </thead>
-                        <tbody> <!-- Mostramos los resultados del Query -->
-                            
-                            <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
-                            
-                            <tr>
-                                <td> <?php echo $usuario ['id_usuario']; ?> </td>
-                                <td> <?php echo $usuario ['usuario']; ?> </td>
-                                <td> <?php echo $usuario ['nombre']; ?> </td>
-                                <td> <?php echo $usuario ['apellido']; ?> </td>
-                                <td> <?php echo $usuario ['identificacion']; ?> </td>
-                                <td> <?php echo $usuario ['id_cargo']; ?> </td>
-                                <td>
-                                    <a href="9-edicion_usuario.php?id=<?php echo $usuario ['id_usuario'];?>">Editar</a>
-                                    <a href="#">Suspender</a>
-                                    <a href="#">Recetear</a>
-                                    <a href="#">Elimina</a>
-                                </td>
-                            </tr>
 
-                            <?php endwhile ?>
+<?php foreach($errores as $error): ?>
+<div class = " alerta error">
+    <?php echo $error; ?>
+</div>
+<?php endforeach; ?>
 
-                        </tbody>
-                    </table>
+            <form class="formulario" method="POST">
+                <fieldset>
+                    <legend>Datos del Proveedor</legend>
+
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+                    <br>
+                    <label for="preci_rif">CI - RIF</label>
+                    <select name="preci_rif" id="preci_rif" name="preci_rif">
+                        <option value="<?php echo $preci_rif?>"> <?php echo $preci_rif?> </option>
+                    <?php //Mostrar los otros pre para actyualizar
+                    if ($preci_rif = 'J'){
+                        echo '<option value="V">V</option>';
+                        echo '<option value="G">G</option>';
+                    }elseif($preci_rif = 'V'){
+                        echo '<option value="J">J</option>';
+                        echo '<option value="G">G</option>';
+                    }elseif($preci_rif = 'G'){
+                        echo '<option value="J">J</option>';
+                        echo '<option value="V">V</option>';
+                    }
+                    ?>
+                    </select>
+                    <input type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+                    <br>
+                    <label for="telefono">Telefono</label>
+                    <input type="text" id= telefono name="telefono" placeholder="0424-123-4567" value="<?php echo $telefono ?>"> 
+                    <br>
+                    <label for="direccion">Direcion</label>
+                    <input type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value="<?php echo $direccion ?>"> 
+                    <br>
+                    <label for="tipo_producto">Tipo de Producto</label>
+                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value="<?php echo $tipo_producto ?>"> 
+
+
+
+                </fieldset>
+
+                <input type="submit" value="Actualizar Proveedor" Class="boton-envio">  
+            </form>
 
         </div>
     </div>
 
 </div>
-
-<!--cierre de la conexion-->
-<?php mysqli_close($db); ?>
 
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script>

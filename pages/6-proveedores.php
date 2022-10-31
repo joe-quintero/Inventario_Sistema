@@ -1,4 +1,6 @@
 <?php
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
+
 //Importamos conexion Base de Datos
 require '../include/config/database.php';
 
@@ -163,47 +165,49 @@ $resultado = mysqli_query($db,$query);
                 <div class="col-lg-12">
                     <h1 class="page-header">Proveedores</h1>
                 </div>
-                <div>
-                    <table class="propiedades">
-                        <thead>
-                            <tr>
-                                <th>ID Proveedor</th>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>CI RIF</th>
-                                <th>Telefono</th>
-                                <th>Dirección</th>
-                                <th>Tipo Producto</th>
-                                <th>Acciones</th>
-                            </tr>   
-                        </thead>
-                        <tbody> <!-- Mostramos los resultados del Query -->
-                            
-                            <?php while($usuario = mysqli_fetch_assoc($resultado)): ?>
-                            
-                            <tr>
-                                <td> <?php echo $usuario ['id_proveedor']; ?> </td>
-                                <td> <?php echo $usuario ['nombre']; ?> </td>
-                                <td> <?php echo $usuario ['preci_rif']; ?> </td>
-                                <td> <?php echo $usuario ['ci_rif']; ?> </td>
-                                <td> <?php echo $usuario ['telefono']; ?> </td>
-                                <td> <?php echo $usuario ['direccion']; ?> </td>
-                                <td> <?php echo $usuario ['tipo_producto']; ?> </td>
-                                <td>
-                                    <a href="#">Editar</a>
-                                    <a href="#">Suspender</a>
-                                    <a href="#">Recetear</a>
-                                    <a href="#">Elimina</a>
-                                </td>
-                            </tr>
-
-                            <?php endwhile ?>
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
+        </div>
 
+        <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">Proveedor actualizado exitosamente!</p> 
+        <?php endif; ?>
+
+        <div>
+        <table class="propiedades">
+            <thead>
+                <tr>
+                    <th>ID Proveedor</th>
+                    <th>Nombre</th>
+                    <th>Documento</th>
+                    <th>CI RIF</th>
+                    <th>Telefono</th>
+                    <th>Dirección</th>
+                    <th>Tipo Producto</th>
+                    <th>Acciones</th>
+                </tr>   
+            </thead>
+            <tbody> <!-- Mostramos los resultados del Query -->
+                
+                <?php while($proveedor = mysqli_fetch_assoc($resultado)): ?>
+                
+                <tr>
+                    <td> <?php echo $proveedor ['id_proveedor']; ?> </td>
+                    <td> <?php echo $proveedor ['nombre']; ?> </td>
+                    <td> <?php echo $proveedor ['preci_rif']; ?> </td>
+                    <td> <?php echo $proveedor ['ci_rif']; ?> </td>
+                    <td> <?php echo $proveedor ['telefono']; ?> </td>
+                    <td> <?php echo $proveedor ['direccion']; ?> </td>
+                    <td> <?php echo $proveedor ['tipo_producto']; ?> </td>
+                    <td>
+                        <a href="10-edicion_proveedor.php?id=<?php echo $proveedor ['id_proveedor'];?>">Editar</a>
+                        <a href="#">Suspender</a>
+                        <a href="#">Recetear</a>
+                        <a href="#">Elimina</a>
+                    </td>
+                </tr>
+                <?php endwhile ?>
+            </tbody>
+        </table>
         </div>
     </div>
 
