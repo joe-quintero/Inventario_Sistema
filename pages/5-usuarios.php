@@ -1,4 +1,5 @@
 <?php
+$mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 //Importamos conexion Base de Datos
 require '../include/config/database.php';
 
@@ -163,8 +164,15 @@ $resultado = mysqli_query($db,$query);
                 <div class="col-lg-12">
                     <h1 class="page-header">Usuarios</h1>
                 </div>
-                <div>
-                    <table class="propiedades">
+            </div>
+        </div>
+
+        <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">¡Usuario actualizado exitosamente!</p> 
+        <?php endif; ?>
+            
+        
+            <table class="propiedades">
                         <thead>
                             <tr>
                                 <th>ID Usuario</th>
@@ -199,8 +207,6 @@ $resultado = mysqli_query($db,$query);
 
                         </tbody>
                     </table>
-                </div>
-            </div>
 
         </div>
     </div>

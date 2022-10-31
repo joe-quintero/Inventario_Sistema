@@ -78,15 +78,17 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
+$query = "UPDATE usuarios SET nombre = '${nombre}' , apellido = '${apellido}' , identificacion = ${identificacion} , usuario = '${usuario}' , id_cargo = ${id_cargo} WHERE id_usuario = ${id}"; 
 
-//    echo $query; //Probar que envia el query
+
+//echo $query; //Probar que envia el query
+
+//exit;
 
 $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 1-registro_usuario.php?mensaje=1"); //Al guardar se envia por la url el mensajed e guardado
+    header("Location: 5-usuarios.php?mensaje=2"); //Al guardar se envia por la url el mensajed e guardado
 }
 }
 }
@@ -255,7 +257,7 @@ if ($resultado) {
 <?php endforeach; ?>
 
 
-            <form class="formulario" method="POST" action="1-registro_usuario.php">
+            <form class="formulario" method="POST">
                 <fieldset>
                     <legend>Datos del Usuario</legend>
 
