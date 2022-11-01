@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 // var_dump($_POST);
 // echo "</pre>";
 
-    $preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
-    $ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
+    //$preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
+    //$ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
     $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
     $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
     $telefono =mysqli_real_escape_string($db , $_POST['telefono']);
@@ -293,7 +293,7 @@ if ($resultado) {
 
                 </fieldset>
 
-                <input type="submit" value="Agregar Cliente" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio">  
             </form>
 
         </div>
