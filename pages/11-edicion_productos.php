@@ -5,7 +5,7 @@ $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT); 
 
 if (!$id) {
-    header('location: 6-proveedores.php');
+    header('location: 7-productos.php');
 }
 
 //Importamos conexion Base de Datos

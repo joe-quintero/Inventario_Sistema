@@ -5,7 +5,7 @@ $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT); 
 
 if (!$id) {
-    header('location: 6-proveedores.php');
+    header('location: 8-clientres.php');
 }
 
 //Importamos conexion Base de Datos
@@ -14,20 +14,21 @@ require '../include/config/database.php';
 //Conexion Base de Datos
 $db = conectarDB();
 
-//Consulta para optener informacion de proveedores
-$consulta = "SELECT nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto  FROM proveedor WHERE id_proveedor = ${id}";
-$resultado = mysqli_query($db, $consulta);
-$consultaProveedores = mysqli_fetch_assoc($resultado);
+
+//Consulta para optener Clientes
+$consulta = "SELECT * FROM clientes WHERE ci_rif = ${id}";
+$resultado = mysqli_query($db,$consulta);
+$consultaClientes = mysqli_fetch_assoc($resultado);
 
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
-$nombre = $consultaProveedores['nombre']; //variables para valores temporales en el formulario
-$ci_rif = $consultaProveedores['ci_rif'];
-$preci_rif = $consultaProveedores['preci_rif'];
-$telefono = $consultaProveedores['telefono'];
-$direccion = $consultaProveedores['direccion'];
-$tipo_producto = $consultaProveedores['tipo_producto'];
+$preci_rif = $consultaClientes['preci_rif']; //variables para valores temporales en el formulario
+$ci_rif = $consultaClientes['ci_rif'];
+$nombre = $consultaClientes['nombre'];
+$apellido = $consultaClientes['apellido'];
+$telefono = $consultaClientes['telefono'];
+$direccion = $consultaClientes['direccion'];
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -35,35 +36,37 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 // var_dump($_POST);
 // echo "</pre>";
 
-    $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
     $preci_rif =mysqli_real_escape_string($db , $_POST['preci_rif']);
     $ci_rif =mysqli_real_escape_string($db , $_POST['ci_rif']);
-    $telefono =mysqli_real_escape_string($db , $_POST['telefono']);;
+    $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
+    $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
+    $telefono =mysqli_real_escape_string($db , $_POST['telefono']);
     $direccion =mysqli_real_escape_string($db , $_POST['direccion']);
-    $tipo_producto =mysqli_real_escape_string($db , $_POST['tipo_producto']);
+
     $fecha = date('Y/m/d');
 
 
 //Se valida el fomulario.
-    if (!$nombre){
-        $errores[]= "Debe colocar el Nombre";
-    }
-
     if (!$preci_rif){
-        $errores[]= "Debe colocar tipo de documento";
+        $errores[]= "Debe colocar tipo de Documento";
     }
 
     if (!$ci_rif){
-        $errores[]= "Debe colocar CI o RIF";
+        $errores[]= "Debe colocar la cedula o RIF del cleinte";
+    }
+
+    if (!$nombre){
+        $errores[]= "Debe colocar nombre del cliente";
     }
 
     if (!$telefono){
-        $errores[]= "Debe colocar Telefono de Contacto";
+        $errores[]= "Debe indicar el numero de telefono";
     }
 
-    if (!$tipo_producto){
-        $errores[]= "Debe indicar el tipo de producto";
+    if (!$direccion){
+        $errores[]= "Debe indicar la direccion del cliente";
     }
+
 
 //Mostrar en formato Array lo que hay en la variable errores.
 // echo "<pre>";  
@@ -74,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
     
 # Insertar en la Bade de Datos
-$query = "UPDATE proveedor SET nombre='${nombre}',ci_rif=${ci_rif},preci_rif='${preci_rif}',telefono='${telefono}',direccion='${direccion}',tipo_producto='${tipo_producto}' WHERE id_proveedor = ${id}";
+$query = "UPDATE clientes SET ci_rif='${ci_rif}',preci_rif='${preci_rif}',nombre='${nombre}',apellido='${apellido}',telefono='${telefono}',direccion='${direccion}' WHERE ci_rif = ${id}"; 
 
 //echo $query; //Probar que envia el query
 
@@ -83,7 +86,7 @@ $query = "UPDATE proveedor SET nombre='${nombre}',ci_rif=${ci_rif},preci_rif='${
     $resultado = mysqli_query($db, $query);
 
 if ($resultado) {
-    header("Location: 6-proveedores.php?mensaje=2"); //Al guardar se envia por la url el mensajed e guardado
+    header("Location: 8-clientes.php?mensaje=2");
 }
 }
 }
@@ -240,7 +243,7 @@ if ($resultado) {
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Proveedores</h1>
+                    <h1 class="page-header">Edicion de Clientes</h1>
                 </div>
             </div>
 
@@ -252,17 +255,16 @@ if ($resultado) {
 <?php endforeach; ?>
 
             <form class="formulario" method="POST">
-                <fieldset>
-                    <legend>Datos del Proveedor</legend>
+            <fieldset>
 
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+                    <legend>Datos del Cliente</legend>
+
                     <br>
                     <label for="preci_rif">CI - RIF</label>
-                    <select name="preci_rif" id="preci_rif" name="preci_rif">
+                    <select name="preci_rif" id="preci_rif" name="preci_rif" disabled="disabled">
                         <option value="<?php echo $preci_rif?>"> <?php echo $preci_rif?> </option>
                     <?php //Mostrar los otros pre para actyualizar
-                    if ($preci_rif === 'J'){
+                    /*if ($preci_rif === 'J'){
                         echo '<option value="V">V</option>';
                         echo '<option value="G">G</option>';
                     }elseif($preci_rif === 'V'){
@@ -271,25 +273,27 @@ if ($resultado) {
                     }elseif($preci_rif === 'G'){
                         echo '<option value="J">J</option>';
                         echo '<option value="V">V</option>';
-                    }
+                    }*/
                     ?>
                     </select>
-                    <input type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+                    <input type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" disabled="disabled" value="<?php echo $ci_rif ?>"> 
+                    <br>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+                    <br>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido ?>"> 
                     <br>
                     <label for="telefono">Telefono</label>
-                    <input type="text" id= telefono name="telefono" placeholder="0424-123-4567" value="<?php echo $telefono ?>"> 
+                    <input type="text" id= telefono name="telefono" placeholder="0424-123-1212" value="<?php echo $telefono ?>"> 
                     <br>
                     <label for="direccion">Direcion</label>
-                    <input type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value="<?php echo $direccion ?>"> 
-                    <br>
-                    <label for="tipo_producto">Tipo de Producto</label>
-                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value="<?php echo $tipo_producto ?>"> 
-
+                    <input type="text" id= direccion name="direccion" placeholder="San Bernardino..." value="<?php echo $direccion ?>"> 
 
 
                 </fieldset>
 
-                <input type="submit" value="Actualizar Proveedor" Class="boton-envio">  
+                <input type="submit" value="Agregar Cliente" Class="boton-envio">  
             </form>
 
         </div>
