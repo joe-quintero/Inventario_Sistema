@@ -11,6 +11,20 @@ $query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo 
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
 
+// Creacion de variable para eliminar registro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id_usuario'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if ($id) {
+        $query = "DELETE FROM usuarios WHERE id_usuario = ${id}";
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado){
+            header('location: 5-usuarios.php?mensaje=3');
+}}}
+
 ?>
 
 <!DOCTYPE html>
@@ -169,6 +183,8 @@ $resultado = mysqli_query($db,$query);
 
         <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
         <p class="alerta exito">¡Usuario actualizado exitosamente!</p> 
+        <?php elseif (intval($mensaje)===3): //Mensaje eliminacion exitosa mostrado ?>
+        <p class="alerta exito">¡Usuario eliminado exitosamente!</p> 
         <?php endif; ?>
             
         <div>
@@ -199,7 +215,12 @@ $resultado = mysqli_query($db,$query);
                                     <a href="9-edicion_usuario.php?id=<?php echo $usuario ['id_usuario'];?>">Editar</a>
                                     <a href="#">Suspender</a>
                                     <a href="#">Recetear</a>
-                                    <a href="#">Elimina</a>
+                        
+                                    <form method="POST"> <!-- Boton para eliminar registro -->
+                                        <input type = "hidden" name = "id_usuario" value = "<?php echo $usuario ['id_usuario'];?>">
+                                        <input type="submit" class = "boton-eliminar" value="Eliminar">
+                                    </form>
+                        
                                 </td>
                             </tr>
 
