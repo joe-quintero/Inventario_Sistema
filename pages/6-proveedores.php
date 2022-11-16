@@ -12,6 +12,20 @@ $query ="SELECT id_proveedor, nombre, preci_rif, ci_rif, telefono, direccion, ti
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
 
+// Creacion de variable para eliminar registro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id_proveedor'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if ($id) {
+        $query = "DELETE FROM proveedor WHERE id_proveedor = ${id}";
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado){
+            header('location: 6-proveedores.php?mensaje=3');
+}}}
+
 ?>
 
 <!DOCTYPE html>
@@ -170,6 +184,8 @@ $resultado = mysqli_query($db,$query);
 
         <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
         <p class="alerta exito">¡Proveedor actualizado exitosamente!</p> 
+        <?php elseif (intval($mensaje)===3): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">Proveedor eliminado exitosamente!</p> 
         <?php endif; ?>
 
         <div>
@@ -200,9 +216,12 @@ $resultado = mysqli_query($db,$query);
                     <td> <?php echo $proveedor ['tipo_producto']; ?> </td>
                     <td>
                         <a href="10-edicion_proveedor.php?id=<?php echo $proveedor ['id_proveedor'];?>">Editar</a>
-                        <a href="#">Suspender</a>
-                        <a href="#">Recetear</a>
-                        <a href="#">Elimina</a>
+                        
+                        <form method="POST"> <!-- Boton para eliminar registro -->
+                            <input type = "hidden" name = "id_proveedor" value = "<?php echo $proveedor ['id_proveedor'];?>">
+                            <input type="submit" class = "boton-eliminar" value="Eliminar">
+                        </form>
+                        
                     </td>
                 </tr>
                 <?php endwhile ?>

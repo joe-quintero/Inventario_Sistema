@@ -25,8 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($resultado){
             header('location: 7-productos.php?mensaje=3');
 }}}
-
-
 ?>
 
 <!DOCTYPE html>
