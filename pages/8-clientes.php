@@ -12,6 +12,24 @@ $query ="SELECT * FROM clientes";
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
 
+
+// Creacion de variable para eliminar registro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['ci_rif'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if ($id) {
+        $query = "DELETE FROM clientes WHERE ci_rif = ${id}";
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado){
+            header('location: 8-clientes.php?mensaje=3');
+        }
+        }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -169,8 +187,10 @@ $resultado = mysqli_query($db,$query);
         </div>
 
         <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
-        <p class="alerta exito">¡Cliente actualizado exitosamente!</p> 
-        <?php endif; ?>
+        <p class="alerta exito">¡Cliente actualizado exitosamente!</p>
+        <?php elseif (intval($mensaje)===3): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">¡Cliente eliminado exitosamente!</p> 
+        <?php endif;?>
 
         <div>
             <table class="propiedades">
@@ -198,7 +218,12 @@ $resultado = mysqli_query($db,$query);
                         <td> <?php echo $cliente ['direccion']; ?> </td>
                         <td>
                         <a href="12-edicion_clientes.php?id=<?php echo $cliente ['ci_rif'];?>">Editar</a>
-                        <a href="#">Elimina</a>
+
+                        <form method="POST"> <!-- Boton para eliminar registro -->
+                            <input type = "hidden" name = "ci_rif" value = "<?php echo $cliente ['ci_rif'];?>">
+                            <input type="submit" class = "boton-eliminar" value="Eliminar">
+                        </form>
+
                         </td>
                     </tr>
 

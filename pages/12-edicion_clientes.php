@@ -5,7 +5,7 @@ $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT); 
 
 if (!$id) {
-    header('location: 8-clientres.php');
+    header('location: 8-clientes.php');
 }
 
 //Importamos conexion Base de Datos
