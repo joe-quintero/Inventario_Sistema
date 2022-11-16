@@ -25,11 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if($resultado){
             header('location: 8-clientes.php?mensaje=3');
-        }
-        }
-}
-
-
+}}}
 ?>
 
 <!DOCTYPE html>

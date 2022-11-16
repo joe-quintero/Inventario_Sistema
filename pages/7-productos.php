@@ -12,6 +12,21 @@ $query ="SELECT id_producto, nombre, tipo_producto, marca, precio_costo, precio_
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
 
+// Creacion de variable para eliminar registro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id_producto'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if ($id) {
+        $query = "DELETE FROM productos WHERE id_producto = ${id}";
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado){
+            header('location: 7-productos.php?mensaje=3');
+}}}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -170,6 +185,8 @@ $resultado = mysqli_query($db,$query);
 
         <?php if (intval($mensaje)===2): //Mensaje deactualizacion exitosa mostrado ?>
         <p class="alerta exito">¡Productos actualizado exitosamente!</p> 
+        <?php elseif (intval($mensaje)===3): //Mensaje deactualizacion exitosa mostrado ?>
+        <p class="alerta exito">Producto eliminado exitosamente!</p> 
         <?php endif; ?>
 
         <div>
@@ -208,8 +225,13 @@ $resultado = mysqli_query($db,$query);
                         <td> <?php echo $producto ['nombre_proveedor']; ?> </td>
                         <td>
                         <a href="11-edicion_productos.php?id=<?php echo $producto ['id_producto'];?>">Editar</a>
-                            <a href="#">Elimina</a>
-                        </td>
+                        
+                        <form method="POST"> <!-- Boton para eliminar registro -->
+                            <input type = "hidden" name = "id_producto" value = "<?php echo $producto ['id_producto'];?>">
+                            <input type="submit" class = "boton-eliminar" value="Eliminar">
+                        </form>
+                        
+                    </td>
                     </tr>
 
                     <?php endwhile ?>
