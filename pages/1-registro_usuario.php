@@ -62,12 +62,19 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 
 //Revisar que el array de errores este vacio para ejecutar el query
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
-    
+
+//Creacion de clave Hasheada
+$password = 'abc123';
+$passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
 # Insertar en la Bade de Datos
 $query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', 'ABC123', '$fecha')"; 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', '$passwordHash', '$fecha')"; 
 
-//    echo $query; //Probar que envia el query
+/*
+echo $query; //Probar que envia el query
+exit;
+*/
 
 $resultado = mysqli_query($db, $query);
 
