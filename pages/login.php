@@ -26,16 +26,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         
         //Revisar si el usuario existe
-        $query = "SELECT * FROM usuarios WHERE usuario = '${usuario}'";
+        $query = "SELECT usuario, password FROM usuarios WHERE usuario = '${usuario}'";
         $resultado = mysqli_query($db, $query);
-
-        var_dump($resultado);
+        
+        // echo "<pre>";
+        // var_dump($resultado);
+        // echo "</pre>";
 
         if ($resultado->num_rows) {
+            //Revisar si el password es correcto
+            $usuario=mysqli_fetch_assoc($resultado);
+
+            //Verificar si el password es correcto o no
+            $aut = password_verify($password, $usuario['password']); //Se compara si el password es igual al de la BD
             
+            if ($aut) {
+                //El usuario esta autenticado
+            }else{
+                $errores[] = 'La clave es incorrecta';
+            }
         }else{
             $errores[] = "El usuario no existe";
-        }
+            }
     }
 
 }
