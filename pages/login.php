@@ -1,3 +1,48 @@
+<?php
+//Conexion BD
+require '../include/config/database.php';
+$db = conectarDB();
+
+//Autenticacion de usuario
+
+$errores = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    /*echo "<pre>";
+        var_dump($_POST);
+    echo "</pre>";*/
+
+    $usuario = mysqli_real_escape_string($db, $_POST['usuario']);
+    $password = mysqli_real_escape_string($db, $_POST['password']);
+
+    if (!$usuario) {
+        $errores [] = "El usuario es obligatorio";
+    }
+
+    if (!$password) {
+        $errores [] = "La clave es obligatoria";
+    }
+
+    if (empty($errores)) {
+        
+        //Revisar si el usuario existe
+        $query = "SELECT * FROM usuarios WHERE usuario = '${usuario}'";
+        $resultado = mysqli_query($db, $query);
+
+        var_dump($resultado);
+
+        if ($resultado->num_rows) {
+            
+        }else{
+            $errores[] = "El usuario no existe";
+        }
+    }
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,6 +66,9 @@
         <!-- Custom Fonts -->
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+        <!-- Mis Estilos -->
+        <link href="../css/styles.css" rel="stylesheet" type="text/css">
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -33,20 +81,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
+
+                <?php foreach($errores as $error):?>
+                    <div class = "alerta error">
+                        <?php echo $error; ?>
+                    </div>
+                    <?php endforeach?>
+
+
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Iniciar Sesión</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form method="POST" role="form">
                                 <fieldset>
                                     <div class="form-group">
                                         <label for="usuario">Usuario</label>
-                                        <input class="form-control" placeholder="Usuario" name="usuario" type="text" id="usuario" autofocus>
+                                        <input class="form-control" placeholder="Usuario" name="usuario" type="text" id="usuario" autofocus required>
                                     </div>
                                     <div class="form-group">
                                     <label for="password">Clave</label>
-                                        <input class="form-control" placeholder="Password" name="password" type="password" id="password">
+                                        <input class="form-control" placeholder="Clave" name="password" type="password" id="password" required>
                                     </div>
                                     <input type="submit" value="Ingresar" class="btn btn-lg btn-success btn-block">
                                 </fieldset>
