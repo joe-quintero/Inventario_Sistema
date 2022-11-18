@@ -1,4 +1,10 @@
 <?php
+require '../include/config/funciones.php'; //Funciones
+$auth=usuarioAutenticado();//Validacion de suuario autenticado
+
+if(!$auth){
+    header('location: login.php');
+}
 
 //Validar que sea un ID valido
 $id = $_GET['id'];

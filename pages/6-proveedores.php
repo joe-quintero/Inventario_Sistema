@@ -1,4 +1,11 @@
 <?php
+require '../include/config/funciones.php'; //Funciones
+$auth=usuarioAutenticado();//Validacion de suuario autenticado
+
+if(!$auth){
+    header('location: login.php');
+}
+
 $mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 
 //Importamos conexion Base de Datos
