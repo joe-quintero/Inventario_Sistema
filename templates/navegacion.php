@@ -1,3 +1,14 @@
+<?php
+
+    if(!isset($_SESSION)){
+        session_start();
+    }
+
+    $auth = $_SESSION['login'] ?? false;
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -123,8 +134,11 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                            </li>
+                            <?php if($auth):?>
+                                <li><a href="../templates/cerrar-sesion.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
+                                </li>
+                            <?php endif; ?>
+
                         </ul>
                     </li>
                 </ul>
