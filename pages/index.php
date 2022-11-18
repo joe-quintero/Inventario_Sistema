@@ -1,12 +1,12 @@
-<?php include '../templates/navegacion.php'; //Navegacion
-
+<?php 
 require '../include/config/funciones.php'; //Funciones
-$auth=usuarioAutenticado();
+$auth=usuarioAutenticado();//Validacion de suuario autenticado
 
 if(!$auth){
-    header('location: login.php');
+    header('location: login.php');//De no estar autenticado dirige a login
 }
 
+include '../templates/navegacion.php'; //Navegacion
 
 ?>
 
