@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         
         //Revisar si el usuario existe
-        $query = "SELECT usuario, password FROM usuarios WHERE usuario = '${usuario}'";
+        $query = "SELECT usuario, password, id_cargo FROM usuarios WHERE usuario = '${usuario}'";
         $resultado = mysqli_query($db, $query);
         
         // echo "<pre>";
@@ -38,10 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario=mysqli_fetch_assoc($resultado);
 
             //Verificar si el password es correcto o no
-            $aut = password_verify($password, $usuario['password']); //Se compara si el password es igual al de la BD
+            $auth = password_verify($password, $usuario['password']); //Se compara si el password es igual al de la BD
             
-            if ($aut) {
+            if ($auth) {
                 //El usuario esta autenticado
+                session_start();
+
+                //Llernar el arreglo de sesion
+                $_SESSION['usuario'] = $usuario['usuario'];
+                $_SESSION['login'] = true;
+                $_SESSION['cargo'] = $usuario['id_cargo'];
+
+
+                echo "<pre>";
+                var_dump($_SESSION);
+                echo "</pre>";
+
             }else{
                 $errores[] = 'La clave es incorrecta';
             }

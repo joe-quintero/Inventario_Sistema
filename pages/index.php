@@ -1,4 +1,17 @@
-<?php include '../templates/navegacion.php'?> <!-- Navegacion -->
+<?php include '../templates/navegacion.php'; //Navegacion
+
+require '../include/config/funciones.php'; //Funciones
+$auth=usuarioAutenticado();
+
+if(!$auth){
+    header('location: login.php');
+}
+
+
+?>
+
+
+
 
             <div id="page-wrapper">
                 <div class="container-fluid">
