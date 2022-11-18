@@ -122,7 +122,7 @@ include '../templates/navegacion.php'; //Navegacion
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Edicion de Productos</h1>
+                    <h1 class="page-header">Actualizar Productos</h1>
                 </div>
             </div>
 
@@ -136,7 +136,7 @@ include '../templates/navegacion.php'; //Navegacion
 
             <form class="formulario" method="POST">
                 <fieldset>
-                    <legend>Datos del Usuario</legend>
+                    <legend>Datos del Producto</legend>
 
                     <label for="nombre">Nombre</label>
                     <input type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>"> 
@@ -171,7 +171,7 @@ include '../templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="Agregar Proveedor" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio">  
             </form>
 
         </div>

@@ -113,7 +113,6 @@ include '../templates/navegacion.php'; //Navegacion
 
                     <legend>Datos del Cliente</legend>
 
-                    <br>
                     <label for="preci_rif">CI - RIF</label>
                     <select name="preci_rif" id="preci_rif" name="preci_rif">
                         <option value="">-</option>
@@ -138,7 +137,7 @@ include '../templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Agregar Cliente" Class="boton-envio">  
+                <input type="submit" value="Agregar" Class="boton-envio">  
             </form>
 
         </div>

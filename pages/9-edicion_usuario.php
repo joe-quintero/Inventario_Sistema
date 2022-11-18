@@ -144,7 +144,7 @@ include '../templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="Actualizar Usuario" class="boton-envio">  
+                <input type="submit" value="Actualizar" class="boton-envio">  
             </form>
 
         </div>

@@ -105,7 +105,7 @@ include '../templates/navegacion.php'; //Navegacion
 
             <form class="formulario" method="POST" action="2-registro_proveedor.php">
                 <fieldset>
-                    <legend>Datos del Usuario</legend>
+                    <legend>Datos del Proveedor</legend>
 
                     <label for="nombre">Nombre</label>
                     <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
@@ -132,7 +132,7 @@ include '../templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Agregar Proveedor" Class="boton-envio">  
+                <input type="submit" value="Agregar" Class="boton-envio">  
             </form>
 
         </div>

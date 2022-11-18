@@ -102,7 +102,7 @@ include '../templates/navegacion.php'; //Navegacion
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Proveedores</h1>
+                    <h1 class="page-header">Actualizar Proveedores</h1>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@ include '../templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Actualizar Proveedor" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio">  
             </form>
 
         </div>
