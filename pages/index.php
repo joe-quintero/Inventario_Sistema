@@ -9,10 +9,6 @@ if(!$auth){
 include '../templates/navegacion.php'; //Navegacion
 
 ?>
-
-
-
-
             <div id="page-wrapper">
                 <div class="container-fluid">
                     <div class="row">
@@ -624,22 +620,4 @@ include '../templates/navegacion.php'; //Navegacion
         </div>
         <!-- /#wrapper -->
 
-        <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
-
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/metisMenu.min.js"></script>
-
-        <!-- Morris Charts JavaScript -->
-        <script src="../js/raphael.min.js"></script>
-        <script src="../js/morris.min.js"></script>
-        <script src="../js/morris-data.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="../js/startmin.js"></script>
-
-    </body>
-</html>
+<?php include '../templates/script.php'; //JavaScript
