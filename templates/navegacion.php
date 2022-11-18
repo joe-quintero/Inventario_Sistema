@@ -24,6 +24,9 @@
         <!-- Morris Charts CSS -->
         <link href="../css/morris.css" rel="stylesheet">
 
+        <!-- Mis Estilos -->
+        <link href="../css/styles.css" rel="stylesheet" type="text/css">
+
         <!-- Custom Fonts -->
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 

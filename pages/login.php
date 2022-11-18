@@ -49,10 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['login'] = true;
                 $_SESSION['cargo'] = $usuario['id_cargo'];
 
+                header ('location: index.php');
 
-                echo "<pre>";
-                var_dump($_SESSION);
-                echo "</pre>";
+// echo "<pre>";
+// var_dump($_SESSION);
+// echo "</pre>";
 
             }else{
                 $errores[] = 'La clave es incorrecta';
