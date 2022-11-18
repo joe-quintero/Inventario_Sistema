@@ -80,7 +80,6 @@ if ($resultado) {
 }
 }
 
-
 include '../templates/navegacion.php'; //Navegacion
 ?>
     <!-- Page Content -->
