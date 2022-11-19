@@ -158,89 +158,65 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                            <li>
-                                <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <li> <!-- Index -->
+                                <a href="index.php"><i class="fa fa-home fa-fw"></i> Inicio</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <li> <!-- Operacion -->
+                                <a href="#"><i class="fa fa-dollar fa-fw"></i>Operación<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="flot.php">Flot Charts</a>
+                                        <a href="#">Venta</a>
                                     </li>
                                     <li>
-                                        <a href="morris.php">Morris.js Charts</a>
+                                        <a href="#">Compra</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
-                                <a href="tables.php"><i class="fa fa-table fa-fw"></i> Tables</a>
-                            </li>
-                            <li>
-                                <a href="forms.php"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <li><!-- Productos -->
+                                <a href="#"><i class="fa fa-truck fa-fw"></i> Productos<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="panels-wells.php">Panels and Wells</a>
+                                        <a href="3-registro_productos.php">Agregar</a>
                                     </li>
                                     <li>
-                                        <a href="buttons.php">Buttons</a>
-                                    </li>
-                                    <li>
-                                        <a href="notifications.php">Notifications</a>
-                                    </li>
-                                    <li>
-                                        <a href="typography.php">Typography</a>
-                                    </li>
-                                    <li>
-                                        <a href="icons.php"> Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="grid.php">Grid</a>
+                                        <a href="7-productos.php">Consultar</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <li><!-- Clientes -->
+                                <a href="#"><i class="fa fa-male fa-fw"></i> Clientes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#">Second Level Item</a>
+                                        <a href="4-registro_clientes.php">Agregar</a>
                                     </li>
                                     <li>
-                                        <a href="#">Second Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Third Level Item</a>
-                                            </li>
-                                        </ul>
-                                        <!-- /.nav-third-level -->
+                                        <a href="8-clientes.php">Consultar</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <li><!-- Proveedores -->
+                                <a href="#"><i class="fa fa fa-handshake-o fa-fw"></i> Proveedores<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="blank.php">Blank Page</a>
+                                        <a href="2-registro_proveedor.php">Agregar</a>
                                     </li>
                                     <li>
-                                        <a href="login.php">Login Page</a>
+                                        <a href="6-proveedores.php">Consultar</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li><!-- Usuarios -->
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Usuarios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="1-registro_usuario.php">Agregar</a>
+                                    </li>
+                                    <li>
+                                        <a href="5-usuarios.php">Consultar</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
