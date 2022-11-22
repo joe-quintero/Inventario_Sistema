@@ -1,5 +1,5 @@
 <?php 
-require '../include/templates/funciones.php'; //Funciones
+require '../include/templates/app.php'; //Funciones
 $auth=usuarioAutenticado();//Validacion de suuario autenticado
 
 if(!$auth){

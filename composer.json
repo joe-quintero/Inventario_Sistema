@@ -2,16 +2,16 @@
     "name": "joe/inventario_sistema",
     "description": "POO",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "App\\" : "./clases"
-        }
-    },
     "authors": [
         {
             "name": "Joe Quintero",
             "email": "joedarwin1998@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\" : "./clases"
+        }
+    } 
 }
