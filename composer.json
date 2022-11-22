@@ -1,27 +1,17 @@
 {
-    "name": "secondtruth/startmin",
-    "description": "An admin dashboard template for Bootstrap",
-    "homepage": "http://www.secondtruth.de",
-    "keywords": ["backend", "admin", "dashboard", "template", "theme", "web"],
-    "license": "MIT",
+    "name": "joe/inventario_sistema",
+    "description": "POO",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\" : "./clases"
+        }
+    },
     "authors": [
         {
-            "name": "Christian Neff",
-            "email": "christian.neff@gmail.com",
-            "homepage": "https://secondtruth.de",
-            "role": "Developer"
-        },
-        {
-            "name": "Ed Preston",
-            "email": "hello@prestonsoft.com",
-            "homepage": "https://prestonsoft.com",
-            "role": "Contributor"
-        },
-        {
-            "name": "David Miller",
-            "email": "hello@davidmiller.io",
-            "homepage": "https://davidmiller.io",
-            "role": "Original Author"
+            "name": "Joe Quintero",
+            "email": "joedarwin1998@gmail.com"
         }
-    ]
+    ],
+    "require": {}
 }
