@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('location: 6-proveedores.php?mensaje=3');
 }}}
 
-include '../templates/navegacion.php'; //Navegacion
+include '../include/templates/navegacion.php'; //Navegacion
 ?>
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -96,4 +96,4 @@ include '../templates/navegacion.php'; //Navegacion
 
 </div>
 
-<?php include '../templates/script.php'; //JavaScript
+<?php include '../include/templates/script.php'; //JavaScript

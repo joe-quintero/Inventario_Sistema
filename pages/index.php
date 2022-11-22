@@ -6,7 +6,7 @@ if(!$auth){
     header('location: login.php');//De no estar autenticado dirige a login
 }
 
-include '../templates/navegacion.php'; //Navegacion
+include '../include/templates/navegacion.php'; //Navegacion
 
 ?>
             <div id="page-wrapper">
@@ -620,4 +620,4 @@ include '../templates/navegacion.php'; //Navegacion
         </div>
         <!-- /#wrapper -->
 
-<?php include '../templates/script.php'; //JavaScript
+<?php include '../include/templates/script.php'; //JavaScript

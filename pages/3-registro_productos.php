@@ -97,7 +97,7 @@ if ($resultado) {
 }
 }
 
-include '../templates/navegacion.php'; //Navegacion
+include '../include/templates/navegacion.php'; //Navegacion
 ?>
 
     <!-- Page Content -->
@@ -166,4 +166,4 @@ include '../templates/navegacion.php'; //Navegacion
 
 </div>
 
-<?php include '../templates/script.php'; //JavaScript
+<?php include '../include/templates/script.php'; //JavaScript

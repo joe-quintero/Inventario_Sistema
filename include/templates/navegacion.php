@@ -135,7 +135,7 @@
                             </li>
                             <li class="divider"></li>
                             <?php if($auth):?>
-                                <li><a href="../templates/cerrar-sesion.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
+                                <li><a href="../include/templates/cerrar-sesion.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesion</a>
                                 </li>
                             <?php endif; ?>
 
