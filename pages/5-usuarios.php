@@ -79,7 +79,7 @@ include '../templates/navegacion.php'; //Navegacion
                                 <td>
                                     <a href="9-edicion_usuario.php?id=<?php echo $usuario ['id_usuario'];?>">Editar</a>
                                     <a href="#">Suspender</a>
-                                    <a href="#">Recetear</a>
+                                    <a href="#">Resetear</a>
                         
                                     <form method="POST"> <!-- Boton para eliminar registro -->
                                         <input type = "hidden" name = "id_usuario" value = "<?php echo $usuario ['id_usuario'];?>">
