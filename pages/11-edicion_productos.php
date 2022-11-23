@@ -163,7 +163,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <input type="number" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
                     <br>
                     <label for="id_proveedor">Proveedor</label>
-                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor">
+                    <select name="id_proveedor" id="id_proveedor" class = "selectBusqueda" name="id_proveedor">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
                             <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"> <?php echo $row ['nombre']." - ".$row ['preci_rif'].$row ['ci_rif'] ?> </option>

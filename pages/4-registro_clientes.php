@@ -114,7 +114,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Cliente</legend>
 
                     <label for="preci_rif">CI - RIF</label>
-                    <select name="preci_rif" id="preci_rif" class="selectBusqueda" name="preci_rif">
+                    <select name="preci_rif" id="preci_rif" name="preci_rif">
                         <option value="">-</option>
                         <option value="V">V</option>
                         <option value="J">J</option>
