@@ -171,7 +171,7 @@
                                         <a href="#">Venta</a>
                                     </li>
                                     <li>
-                                        <a href="#">Compra</a>
+                                        <a href="13-compra.php">Compra</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
