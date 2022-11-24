@@ -9,13 +9,24 @@ if(!$auth){
 $mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
+$id_proveedor = $_GET['id'] ?? null;
+
 $db = conectarDB();
 
 //Consulta para optener cargo
-$consultaProveedores = "SELECT A.* FROM proveedor A INNER JOIN PRODUCTOS B ON A.ID_PROVEEDOR = B.ID_PROVEEDOR";
-$resultado = mysqli_query($db,$consultaProveedores);
+$consultaProveedores = "SELECT * FROM proveedor where id_proveedor = ?";
+$stmt = $db->prepare($consultaProveedores);
+$stmt->bind_param("i", $id_proveedor); //s:string ;i:integer
+$stmt->execute();
+$resultado = $stmt->get_result();
+$prov = $resultado->fetch_object();
 
+$consultaProductosProv = "SELECT * FROM PRODUCTOS WHERE ID_PROVEEDOR = ?";
 
+$stmt = $db->prepare($consultaProductosProv);
+$stmt->bind_param("i", $id_proveedor); //s:string ;i:integer
+$stmt->execute();
+$resultadoProducto = $stmt->get_result(); // get the mysqli result
 
 
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
@@ -37,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     // $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
     // $identificacion =mysqli_real_escape_string($db , $_POST['identificacion']);
     // $usuario =mysqli_real_escape_string($db , $_POST['usuario']);
-    // $id_proveedor =mysqli_real_escape_string($db , $_POST['id_proveedor']);
+    $id_proveedor =mysqli_real_escape_string($db , $_POST['id_proveedor']);
     // $fecha = date('Y/m/d');
 
 //Se valida el fomulario.
@@ -82,7 +93,7 @@ echo $query; //Probar que envia el query
 exit;
 */
 
-// $resultado = mysqli_query($db, $query);
+$resultado = mysqli_query($db, $query);
 
 // if ($resultado) {
 //     header("Location: 1-registro_usuario.php?mensaje=1"); //Al guardar se envia por la url el mensajed e guardado
@@ -115,37 +126,32 @@ include '../include/templates/navegacion.php'; //Navegacion
     <p class="alerta exito">¡Usuario creado exitosamente!</p> 
 <?php endif; ?> -->
 
-            <form class="formulario" method="POST">
+            <form class="formulario" method="POST" action="">
                 <fieldset>
-                    <legend>Selecionar Pproveedor</legend>
+                    <legend>Selecionar Proveedor</legend>
 
                     <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
-                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"><?php echo $row ['preci_rif'] ?>  <?php echo $row ['ci_rif'] ?> - <?php echo $row ['nombre'] ?> </option>
+                        
+                    </select>
+                    I  
+                    <input type="text" value = "<?php echo $prov->nombre?>">
+                    
+                    <select name="id_producto" id="id_producto" class="selectBusqueda">
+                        <option value="">---Seleccionar---</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultadoProducto) ): ?>
+                            <option value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> </option>
                         <?php endwhile ?>
                     </select>
                 </fieldset>
                 <br>
-                <!-- <input type="submit" value="Selecionar Proveedor" class="boton-envio">   -->
-                <a href="#" onclick = "envioProveedor()">Editar</a>
+                <input type="submit" value="Selecionarasdasdas Proveedor" class="boton-envio">  
             </form>
-
         </div>
     </div>
-
 </div>
 
-<?php include '../include/templates/script.php'; //JavaScript
-?>
+<?php include '../include/templates/script.php';//JavaScript ?> 
 <script>
-    function envioProveedor() {
-        const id = $("#id_proveedor").val();
-        console.log(id)
-        if(id == "" || id == null) {
-            alert("Por favor, seleccione un proveedor");
-            return false;
-        } 
-        window.location.href = "14-ingreso_compra.php?id="+id;
-    }
-</script>
+    console.log('<?php echo $prov->nombre?>')
+</script>   
