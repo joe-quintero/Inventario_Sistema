@@ -168,7 +168,7 @@
                                 <a href="#"><i class="fa fa-dollar fa-fw"></i>Operación<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#">Venta</a>
+                                        <a href="15-venta.php">Venta</a>
                                     </li>
                                     <li>
                                         <a href="13-compra.php">Compra</a>

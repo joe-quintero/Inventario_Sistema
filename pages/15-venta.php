@@ -12,8 +12,8 @@ require '../include/config/database.php';
 $db = conectarDB();
 
 //Consulta para optener cargo
-$consultaProveedores = "SELECT A.* FROM proveedor A INNER JOIN PRODUCTOS B ON A.ID_PROVEEDOR = B.ID_PROVEEDOR";
-$resultado = mysqli_query($db,$consultaProveedores);
+$consultaProductos = "SELECT * FROM productos WHERE cantidad > 0";
+$resultado = mysqli_query($db,$consultaProductos);
 
 
 
@@ -100,7 +100,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro de Compra</h1>
+                    <h1 class="page-header">Registro de Venta</h1>
                 </div>
             </div>
 
@@ -117,19 +117,42 @@ include '../include/templates/navegacion.php'; //Navegacion
 
             <form class="formulario" method="POST">
                 <fieldset>
-                    <legend>Selecionar Proveedor</legend>
-
+                    <legend>Selecionar Productos</legend>
+                    <label for="cantidad">Producto</label>
                     <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"><?php echo $row ['preci_rif'] ?>  <?php echo $row ['ci_rif'] ?> - <?php echo $row ['nombre'] ?> </option>
+                            <option   <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio_venta']?>$</option>
                         <?php endwhile ?>
                     </select>
+                    <br>
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" id= cantidad name="cantidad" placeholder="10"> 
+                    <br>
                 </fieldset>
                 <br>
                 <!-- <input type="submit" value="Selecionar Proveedor" class="boton-envio">   -->
-                <a href="#" onclick = "envioProveedor()">Seleccionar</a>
+                <a href="#" onclick = "envioProveedor()">Agregar</a>
             </form>
+
+            <div>
+            <table class="propiedades">
+                <thead>
+                    <tr>
+                    <th>Cantidad</th>
+                    <th>Producto</th>
+                    <th>precio</th>
+                    <th>Total</th>
+                    </tr>   
+                </thead>
+                <tbody> <!-- Mostramos los resultados del Query -->
+                <tbody> <!-- Mostramos los resultados del Query -->                    
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+                </tbody>
+            </table>
 
         </div>
     </div>

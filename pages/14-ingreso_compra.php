@@ -13,7 +13,7 @@ $id_proveedor = $_GET['id'] ?? null;
 
 $db = conectarDB();
 
-//Consulta para optener cargo
+//Consulta para optener proveedor
 $consultaProveedores = "SELECT * FROM proveedor where id_proveedor = ?";
 $stmt = $db->prepare($consultaProveedores);
 $stmt->bind_param("i", $id_proveedor); //s:string ;i:integer
@@ -32,11 +32,8 @@ $resultadoProducto = $stmt->get_result(); // get the mysqli result
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
-// $nombre = ''; //variables para valores temporales en el formulario
-// $apellido = '';
-// $identificacion = '';
-// $usuario =  '';
-$id_proveedor = '';
+//variables para valores temporales en el formulario
+$cantidad ='';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -44,12 +41,20 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
 // var_dump($_POST);
 // echo "</pre>";
 
-    // $nombre =mysqli_real_escape_string($db , $_POST['nombre']);
-    // $apellido =mysqli_real_escape_string($db , $_POST['apellido']);
-    // $identificacion =mysqli_real_escape_string($db , $_POST['identificacion']);
-    // $usuario =mysqli_real_escape_string($db , $_POST['usuario']);
-    $id_proveedor =mysqli_real_escape_string($db , $_POST['id_proveedor']);
-    // $fecha = date('Y/m/d');
+    //$operacion =mysqli_real_escape_string($db , $_POST['operacion']);
+    $id_producto =mysqli_real_escape_string($db , $_POST['id_producto']);
+    $nombre_producto =mysqli_real_escape_string($db , $_POST['nombre_producto']);
+    $cirif_cleinte_proveedor  =mysqli_real_escape_string($db , $_POST['cirif_cleinte_proveedor']);
+    $nombre_cliente_proveedor =mysqli_real_escape_string($db , $_POST['nombre_cliente_proveedor']);
+    $cantidad =mysqli_real_escape_string($db , $_POST['cantidad']);
+    //$precio_unitario =mysqli_real_escape_string($db , $_POST['precio_unitario']);
+    //$precio_total =mysqli_real_escape_string($db , $_POST['precio_total']);
+    //$utilidad =mysqli_real_escape_string($db , $_POST['utilidad']);
+    $fecha = date('Y/m/d');
+    //$id_usuario  =mysqli_real_escape_string($db , $_POST['id_usuario']);
+    //$nombre_usuario	 =mysqli_real_escape_string($db , $_POST['nombre_usuario']);
+    //$id_tipo_operacion  =mysqli_real_escape_string($db , $_POST['id_tipo_operacion']);
+
 
 //Se valida el fomulario.
     // if (!$nombre){
@@ -67,10 +72,6 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     // if (!$usuario){
     //     $errores[]= "Debe colocar Nombre de usuario";
     // }
-
-    if (!$id_proveedor){
-        $errores[]= "Debe elegir un Proveedor";
-    }
 
 //Mostrar en formato Array lo que hay en la variable errores.
 // echo "<pre>";  
@@ -128,25 +129,44 @@ include '../include/templates/navegacion.php'; //Navegacion
 
             <form class="formulario" method="POST" action="">
                 <fieldset>
-                    <legend>Selecionar Proveedor</legend>
-
-                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
-                        <option value="">---Seleccionar---</option>
-                        
-                    </select>
-                    I  
-                    <input type="text" value = "<?php echo $prov->nombre?>">
-                    
+                    <legend>Ingresar productos</legend>
+                    <label for="proveedor">Proveedor</label>
+                    <input type="text" value = "<?php echo $prov->preci_rif?><?php echo " - "?><?php echo $prov->ci_rif?><?php echo " - "?><?php echo $prov->nombre?>" disabled="disabled">
+                    <br><br>
+                    <label for="producto">Producto</label>
                     <select name="id_producto" id="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultadoProducto) ): ?>
-                            <option value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> </option>
+                            <option   <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio_venta']?>$</option>
                         <?php endwhile ?>
                     </select>
+                    <br><br>
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" id= cantidad name="cantidad" placeholder="10"> 
+                    <br>
                 </fieldset>
                 <br>
-                <input type="submit" value="Selecionarasdasdas Proveedor" class="boton-envio">  
+                <input type="submit" value="Agregar Prodcuto" class="boton-envio">  
             </form>
+
+            <div>
+            <table class="propiedades">
+                <thead>
+                    <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>precio</th>
+                    <th>Total</th>
+                    </tr>   
+                </thead>
+                <tbody> <!-- Mostramos los resultados del Query -->                    
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
         </div>
     </div>
 </div>
