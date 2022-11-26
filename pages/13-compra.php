@@ -139,7 +139,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 <?php include '../include/templates/script.php'; //JavaScript
 ?>
 <script>
-    function envioProveedor() {
+    function envioProveedor() { //Enviar e la otra ventana para reistrar compras
         const id = $("#id_proveedor").val();
         console.log(id)
         if(id == "" || id == null) {
@@ -148,4 +148,7 @@ include '../include/templates/navegacion.php'; //Navegacion
         } 
         window.location.href = "14-ingreso_compra.php?id="+id;
     }
+
+    
+
 </script>

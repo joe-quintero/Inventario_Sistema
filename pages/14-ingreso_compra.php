@@ -142,12 +142,13 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                     <br><br>
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" id= cantidad name="cantidad" placeholder="10"> 
+                    <input type="number" id= cantidad name="cantidad" placeholder="10" value = "<?php echo $cantidad ?>"> 
                     <br>
                 </fieldset>
                 <br>
                 <input type="submit" value="Agregar Prodcuto" class="boton-envio">  
             </form>
+            <button class="add-row">Add row</button>
 
             <div>
             <table class="propiedades">
@@ -165,7 +166,8 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </tr>
                 </tbody>
             </table>
-
+            <br>
+            <button>Realizar Compra</button>
         </div>
         </div>
     </div>
@@ -173,5 +175,19 @@ include '../include/templates/navegacion.php'; //Navegacion
 
 <?php include '../include/templates/script.php';//JavaScript ?> 
 <script>
-    console.log('<?php echo $prov->nombre?>')
+    console.log('<?php echo $prov->nombre?>');
+
+    let lineNo = 1; //Agregar productos a tabla
+        $(document).ready(function () {
+            $(".add-row").click(function () {
+                markup = "<tr><td> Producto " 
+                    + lineNo + "</td><td> <?php echo $cantidad; ?>" 
+                    + lineNo + "</td><td> Precio " 
+                    + lineNo + "</td><td> Total " 
+                    + lineNo + "</td></tr>";
+                tableBody = $("table tbody");
+                tableBody.append(markup);
+                lineNo++;
+            });
+        }); 
 </script>   
