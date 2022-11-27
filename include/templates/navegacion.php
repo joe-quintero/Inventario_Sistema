@@ -173,6 +173,9 @@
                                     <li>
                                         <a href="13-compra.php">Compra</a>
                                     </li>
+                                    <li>
+                                        <a href="18-operaciones.php">Historico</a>
+                                    </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
