@@ -200,6 +200,9 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
 ?>
     <?php } ?>
 
+    const disponible = $(productosBD['cantidad']).val()
+    alert(disponible)
+
     let lineNo = 1; //Agregar productos a tabla´
         $(document).ready(function () {
             $(".add-row").click(function () {
