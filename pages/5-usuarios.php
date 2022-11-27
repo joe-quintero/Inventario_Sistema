@@ -13,7 +13,7 @@ require '../include/config/database.php';
 $db= conectarDB();
 
 //Query
-$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo from USUARIOS";
+$query ="SELECT id_usuario, usuario, nombre, apellido, identificacion, id_cargo, estatus from USUARIOS WHERE id_cargo != 1";
 
 //Consulta Base de Datos
 $resultado = mysqli_query($db,$query);
@@ -60,8 +60,9 @@ include '../include/templates/navegacion.php'; //Navegacion
                                 <th>Usuario</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Identificacion</th>
+
                                 <th>Cargo</th>
+                                <th>Estatus</th>
                                 <th>Acciones</th>
                             </tr>   
                         </thead>
@@ -74,18 +75,32 @@ include '../include/templates/navegacion.php'; //Navegacion
                                 <td> <?php echo $usuario ['usuario']; ?> </td>
                                 <td> <?php echo $usuario ['nombre']; ?> </td>
                                 <td> <?php echo $usuario ['apellido']; ?> </td>
-                                <td> <?php echo $usuario ['identificacion']; ?> </td>
-                                <td> <?php echo $usuario ['id_cargo']; ?> </td>
+
+                        <?php switch ($usuario ['id_cargo']) { //Mostrar Cargo
+                        case 1:
+                            echo '<td>Administrador</td>';
+                            break;
+                        case 2:
+                            echo '<td>Supervisor</td>';
+                            break;
+                        case 3:
+                            echo '<td>Vendedor</td>';}?>
+                            <?php if ($usuario ['estatus'] === 'A'): //Mostar Estatus con if ?>
+                                <td>Activo</td>
+                            <?php else: ?>
+                                <td>Inactivo</td>
+                            <?php endif ?>
                                 <td>
                                     <a href="9-edicion_usuario.php?id=<?php echo $usuario ['id_usuario'];?>">Editar</a>
-                                    <a href="#">Suspender</a>
-                                    <a href="#">Resetear</a>
-                        
+                                <?php if ($usuario ['estatus'] === 'A'): //Mostar Opcion con if ?>
+                                    <a href="#">Desactivar</a>
+                                <?php else: ?>
+                                    <a href="#">Activar</a>
+                                <?php endif ?>
                                     <form method="POST"> <!-- Boton para eliminar registro -->
                                         <input type = "hidden" name = "id_usuario" value = "<?php echo $usuario ['id_usuario'];?>">
                                         <input type="submit" class = "boton-eliminar" value="Eliminar">
                                     </form>
-                        
                                 </td>
                             </tr>
 
