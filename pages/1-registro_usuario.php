@@ -70,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     if(empty($errores)){ // ----- emtpty revisa que el arreglo se encuentre vacio
 
 //Creacion de clave Hasheada
-$password = 'abc123';
+$password = $identificacion;
 $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
 # Insertar en la Bade de Datos
-$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, fecha) 
-VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', '$passwordHash', '$fecha')"; 
+$query = "INSERT INTO usuarios (nombre, apellido, identificacion, usuario, id_cargo, password, estatus, fecha) 
+VALUES ('$nombre', '$apellido', '$identificacion', '$usuario', '$id_cargo', '$passwordHash','A', '$fecha')"; 
 
 /*
 echo $query; //Probar que envia el query
