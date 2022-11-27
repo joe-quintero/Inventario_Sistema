@@ -12,7 +12,7 @@ require '../include/config/database.php';
 $db = conectarDB();
 
 //Consulta para optener cargo
-$consultaProductos = "SELECT * FROM productos WHERE cantidad > 0";
+$consultaProductos = "SELECT * FROM productos";
 $resultado = mysqli_query($db,$consultaProductos);
 
 
@@ -122,7 +122,14 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option   <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio_venta']?>$</option>
+                            <option   
+                            <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>">
+                            Nombre: <?php echo $row ['nombre'] ?>
+                            - Tipo:<?php echo $row ['tipo_producto'] ?>
+                            - Marca:<?php echo $row ['marca'] ?>
+                            - Disponible: <?php echo $row ['cantidad'] ?> 
+                            - Precio: <?php echo $row ['precio_venta']?>
+                            $</option>
                         <?php endwhile ?>
                     </select>
                     <br>

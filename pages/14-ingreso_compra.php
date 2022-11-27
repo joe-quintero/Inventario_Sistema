@@ -111,6 +111,8 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
     $arrProductos[$row["id_producto"]] =  array(
         "id" => $row["id_producto"],
         "nombre" => $row["nombre"],
+        "tipo" => $row["tipo_producto"],
+        "marca" => $row["nombre"],
         "precio" => $row["precio_venta"],
         "cantidad" => $row["cantidad"]
     );
@@ -150,7 +152,12 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                         <option value="">---Seleccionar---</option>
                         <?php foreach ($arrProductos as $row ){ 
                         ?>
-                            <option   <?php echo $id_proveedor === $row ['id'] ? 'selected' : ''; ?>   value="<?php echo $row ['id'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio']?>$</option>
+                            <option   <?php echo $id_proveedor === $row ['id'] ? 'selected' : ''; ?>   value="<?php echo $row ['id'] ?>">
+                            Nombre: <?php echo $row ['nombre'] ?>
+                            - Tipo: <?php echo $row ['tipo'] ?>
+                            - Marca: <?php echo $row ['marca'] ?>
+                            - Disponible: <?php echo $row ['cantidad'] ?> 
+                            - Precio: <?php echo $row ['precio']?>$</option>
                         <?php  }?>
                     </select>
                     <br><br>
