@@ -103,6 +103,18 @@ $resultado = mysqli_query($db, $query);
 }
 
 include '../include/templates/navegacion.php'; //Navegacion
+//$arrProductos = [];
+$arrProductos = array(
+);
+
+while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
+    $arrProductos[$row["id_producto"]] =  array(
+        "id" => $row["id_producto"],
+        "nombre" => $row["nombre"],
+        "precio" => $row["precio_venta"],
+        "cantidad" => $row["cantidad"]
+    );
+}
 ?>
 
 
@@ -136,9 +148,10 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <label for="producto">Producto</label>
                     <select name="id_producto" id="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
-                        <?php while ($row = mysqli_fetch_assoc($resultadoProducto) ): ?>
-                            <option   <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio_venta']?>$</option>
-                        <?php endwhile ?>
+                        <?php foreach ($arrProductos as $row ){ 
+                        ?>
+                            <option   <?php echo $id_proveedor === $row ['id'] ? 'selected' : ''; ?>   value="<?php echo $row ['id'] ?>"><?php echo $row ['nombre'] ?> - Disponible: <?php echo $row ['cantidad'] ?> - Precio: <?php echo $row ['precio']?>$</option>
+                        <?php  }?>
                     </select>
                     <br><br>
                     <label for="cantidad">Cantidad</label>
@@ -167,27 +180,74 @@ include '../include/templates/navegacion.php'; //Navegacion
                 </tbody>
             </table>
             <br>
-            <button>Realizar Compra</button>
+            <button onclick = "enviarFormulario()">Realizar Compra</button>
         </div>
         </div>
     </div>
 </div>
 
+<form id="formulario" method="POST" action="16-fin_compra.php?id=11">
+    <input type="hidden" id="dataJson" name="productosCompra" value="">
+</form>
+
 <?php include '../include/templates/script.php';//JavaScript ?> 
 <script>
     console.log('<?php echo $prov->nombre?>');
+    
+    var productos = [];
+    var productosBD = {};
 
-    let lineNo = 1; //Agregar productos a tabla
+    <?php 
+
+        if(!empty($arrProductos)) { 
+            echo "console.log('".json_encode($arrProductos)."');\n
+                productosBD = JSON.parse('".json_encode($arrProductos)."');\n  " ;   
+        ?>
+
+    <?php } ?>
+
+    let lineNo = 1; //Agregar productos a tabla´
         $(document).ready(function () {
             $(".add-row").click(function () {
-                markup = "<tr><td> Producto " 
-                    + lineNo + "</td><td> <?php echo $cantidad; ?>" 
-                    + lineNo + "</td><td> Precio " 
-                    + lineNo + "</td><td> Total " 
-                    + lineNo + "</td></tr>";
+                let acumulado = 0.0;
+                const id =$("#id_producto").val()
+                const cantidad = $("#cantidad").val()
+
+                //Validaciones
+                if(id == null || id == '') {
+                    alert('Por favor, seleccione un producto.');
+                    return false
+                }
+
+                if(cantidad == null || cantidad == '') {
+                    alert('Por favor, indique cantidad a comprar');
+                    return false;
+                }
+
+                let p = productosBD[id];
+                p['cantidad'] = cantidad;
+                acumulado += parseFloat(p.precio) * parseFloat(cantidad)
+                p['acumulado'] = acumulado
+                productos.push(p)
+
+                markup = "<tr><td> " + p.nombre + 
+                        "</td><td> " + cantidad 
+                    +"</td><td> $ " + p.precio 
+                    + "</td><td> $ " + acumulado
+                    + "</td></tr>";
                 tableBody = $("table tbody");
                 tableBody.append(markup);
                 lineNo++;
             });
         }); 
+
+        function enviarFormulario() {
+            //validaciones
+            if(productos.length < 1) {
+                alert('Por favor, agregue productos')
+                return false;
+            }
+            $("#dataJson").val(JSON.stringify(productos));
+            $("#formulario").submit();
+        }
 </script>   
