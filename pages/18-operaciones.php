@@ -32,7 +32,7 @@ include '../include/templates/navegacion.php'; //Navegacion
             </div>
         </div>            
         <div>
-            <table class="propiedades">
+            <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Operacion</th>

@@ -23,9 +23,9 @@ $resultadoProducto = $stmt->get_result(); // get the mysqli result
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
 $errores= [];
 
-// $nombre = ''; //variables para valores temporales en el formulario
+$nombre = ''; //variables para valores temporales en el formulario
 // $apellido = '';
-// $identificacion = '';
+$identificacion = '';
 // $usuario =  '';
 $id_producto = '';
 
@@ -136,6 +136,18 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
             <form class="formulario" method="POST">
                 <fieldset>
                     <legend>Selecionar Productos</legend>
+                    <label for="preci_rif">CI - RIF</label>
+                    <select name="preci_rif" id="preci_rif" name="preci_rif">
+                        <option value="">-</option>
+                        <option value="V">V</option>
+                        <option value="J">J</option>
+                        <option value="G">G</option>
+                    </select>
+                    <input type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+                    <br>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Cliente" value="<?php echo $nombre ?>"> 
+                    <br>
                     <label for="cantidad">Producto</label>
                     <select name="id_producto" id="id_producto" name="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
@@ -159,7 +171,7 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
             <br>
             <button class="add-row">Agregar Prodcutos</button>
             <div>
-            <table class="propiedades">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                     <th>Cantidad</th>

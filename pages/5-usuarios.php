@@ -53,17 +53,16 @@ include '../include/templates/navegacion.php'; //Navegacion
         <?php endif; ?>
             
         <div>
-            <table class="propiedades">
+            <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID Usuario</th>
-                                <th>Usuario</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-
-                                <th>Cargo</th>
-                                <th>Estatus</th>
-                                <th>Acciones</th>
+                                <th scope="col">ID Usuario</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Cargo</th>
+                                <th scope="col">Estatus</th>
+                                <th scope="col">Acciones</th>
                             </tr>   
                         </thead>
                         <tbody> <!-- Mostramos los resultados del Query -->

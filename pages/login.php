@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
         
         //Revisar si el usuario existe
-        $query = "SELECT usuario, password, id_cargo FROM usuarios WHERE usuario = '${usuario}'";
+        $query = "SELECT * FROM usuarios WHERE usuario = '${usuario}'";
         $resultado = mysqli_query($db, $query);
         
         // echo "<pre>";
@@ -45,9 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
 
                 //Llernar el arreglo de sesion
-                $_SESSION['usuario'] = $usuario['usuario'];
                 $_SESSION['login'] = true;
-                $_SESSION['cargo'] = $usuario['id_cargo'];
+                $_SESSION['usuario'] = $usuario['usuario'];
+                $_SESSION['id_usuario'] = $usuario['id_usuario'];
+                $_SESSION['id_cargo'] = $usuario['id_cargo'];
+
 
                 header ('location: index.php');
 

@@ -54,7 +54,7 @@ include '../include/templates/navegacion.php'; //Navegacion
         <?php endif;?>
 
         <div>
-            <table class="propiedades">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                     <th>Documento</th>

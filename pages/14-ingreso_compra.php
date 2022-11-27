@@ -170,7 +170,7 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
             <button class="add-row">Agregar Prodcutos</button>
 
             <div>
-            <table class="propiedades">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                     <th>Producto</th>
