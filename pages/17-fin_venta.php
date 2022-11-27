@@ -10,23 +10,23 @@ $mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
 $id_proveedor = $_GET['id'] ?? null;
-$dataStr = $_POST['productosCompra'] ?? null;
-$productosCompra = json_decode($dataStr);
+$dataStr = $_POST['productosVenta'] ?? null;
+$productosVenta = json_decode($dataStr);
 
 $db = conectarDB();
 
-foreach($productosCompra as $producto) {
+foreach($productosVenta as $producto) {
     //1) Crear operacion
     //2) Actualizar cantidad de producto
-    $insertarOperacion = "INSERT INTO operacion(operacion, id_producto, nombre_producto, cirif_cleinte_proveedor, nombre_cliente_proveedor, cantidad, precio_unitario, precio_total, fecha, id_usuario, nombre_usuario, id_tipo_operacion) VALUES ('COMPRA', ?, ?, '111111111', 'PEPE', ?, ?, ?, sysdate(), '1', 'jdquintero', '101')";
+    $insertarOperacion = "INSERT INTO operacion(operacion, id_producto, nombre_producto, cirif_cleinte_proveedor, nombre_cliente_proveedor, cantidad, precio_unitario, precio_total, fecha, id_usuario, nombre_usuario, id_tipo_operacion) VALUES ('VENTA', ?, ?, '111111111', 'PEPE', ?, ?, ?, sysdate(), '1', 'jdquintero', '102')";
     $stmt = $db->prepare($insertarOperacion);
     //echo $producto['id'];
     $stmt->bind_param("isidd", $producto->id, $producto->nombre, $producto->cantidad, $producto->precio, $producto->acumulado);
     $stmt->execute();
     $stmt->close();
 
-    //Aumentar en productos
-    $updtProductos = "UPDATE PRODUCTOS SET CANTIDAD = CANTIDAD + ".$producto->cantidad." WHERE ID_PRODUCTO = ?";
+    //Disminuir en productos
+    $updtProductos = "UPDATE PRODUCTOS SET CANTIDAD = CANTIDAD - ".$producto->cantidad." WHERE ID_PRODUCTO = ?";
     $stmt = $db->prepare($updtProductos);
     $stmt->bind_param("i", $producto->id);
     $stmt->execute();
@@ -66,7 +66,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 <!-- <?php if (intval($mensaje)===1): //Mensaje de exitodo mostrando ?>
     <p class="alerta exito">¡Usuario creado exitosamente!</p> 
 <?php endif; ?> -->
-                <h1>Compra realizada exitosamente</h1>
+                <h1>Venta realizada exitosamente</h1>
             
             <div>
             

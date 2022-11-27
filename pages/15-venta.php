@@ -13,9 +13,11 @@ $db = conectarDB();
 
 //Consulta para optener cargo
 $consultaProductos = "SELECT * FROM productos";
-$resultado = mysqli_query($db,$consultaProductos);
+//$resultado = mysqli_query($db,$consultaProductos);
 
-
+$stmt = $db->prepare($consultaProductos);
+$stmt->execute();
+$resultadoProducto = $stmt->get_result(); // get the mysqli result
 
 
 //Array con mensajes de Error para lavidar que los campos no se envien vacios
@@ -25,7 +27,7 @@ $errores= [];
 // $apellido = '';
 // $identificacion = '';
 // $usuario =  '';
-$id_proveedor = '';
+$id_producto = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
 if ($_SERVER['REQUEST_METHOD']=== 'POST') {
@@ -91,6 +93,22 @@ exit;
 }
 
 include '../include/templates/navegacion.php'; //Navegacion
+$arrProductos = array(
+);
+
+while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
+    $arrProductos[$row["id_producto"]] =  array(
+        "id" => $row["id_producto"],
+        "nombre" => $row["nombre"],
+        "tipo" => $row["tipo_producto"],
+        "marca" => $row["nombre"],
+        "precio" => $row["precio_venta"],
+        "cantidad" => $row["cantidad"]
+    );
+}
+
+
+
 ?>
 
 
@@ -119,18 +137,17 @@ include '../include/templates/navegacion.php'; //Navegacion
                 <fieldset>
                     <legend>Selecionar Productos</legend>
                     <label for="cantidad">Producto</label>
-                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
+                    <select name="id_producto" id="id_producto" name="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
-                        <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
-                            <option   
-                            <?php echo $id_proveedor === $row ['id_producto'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_producto'] ?>">
+                        <?php foreach ($arrProductos as $row ){ 
+                        ?>
+                            <option   <?php echo $id_producto === $row ['id'] ? 'selected' : ''; ?>   value="<?php echo $row ['id'] ?>">
                             Nombre: <?php echo $row ['nombre'] ?>
-                            - Tipo:<?php echo $row ['tipo_producto'] ?>
-                            - Marca:<?php echo $row ['marca'] ?>
+                            - Tipo: <?php echo $row ['tipo'] ?>
+                            - Marca: <?php echo $row ['marca'] ?>
                             - Disponible: <?php echo $row ['cantidad'] ?> 
-                            - Precio: <?php echo $row ['precio_venta']?>
-                            $</option>
-                        <?php endwhile ?>
+                            - Precio: <?php echo $row ['precio']?>$</option>
+                        <?php  }?>
                     </select>
                     <br>
                     <label for="cantidad">Cantidad</label>
@@ -138,10 +155,9 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <br>
                 </fieldset>
                 <br>
-                <!-- <input type="submit" value="Selecionar Proveedor" class="boton-envio">   -->
-                <a href="#" onclick = "envioProveedor()">Agregar</a>
             </form>
-
+            <br>
+            <button class="add-row">Agregar Prodcutos</button>
             <div>
             <table class="propiedades">
                 <thead>
@@ -152,30 +168,80 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <th>Total</th>
                     </tr>   
                 </thead>
-                <tbody> <!-- Mostramos los resultados del Query -->
-                <tbody> <!-- Mostramos los resultados del Query -->                    
+                <tbody> <!-- Mostramos los resultados del Query -->                  
                     <tr>
                         <td></td>
                     </tr>
                 </tbody>
                 </tbody>
             </table>
-
+            <br>
+            <button onclick = "enviarFormulario()">Realizar Venta</button>
         </div>
     </div>
 
 </div>
 
-<?php include '../include/templates/script.php'; //JavaScript
-?>
+<form id="formulario" method="POST" action="17-fin_venta.php">
+                <input type="hidden" id="dataJson" name="productosVenta" value="">
+            </form>
+
+<?php include '../include/templates/script.php'; //JavaScript ?>
 <script>
-    function envioProveedor() {
-        const id = $("#id_proveedor").val();
-        console.log(id)
-        if(id == "" || id == null) {
-            alert("Por favor, seleccione un proveedor");
-            return false;
-        } 
-        window.location.href = "14-ingreso_compra.php?id="+id;
-    }
+
+    var productos = [];
+    var productosBD = {};
+
+<?php 
+
+        if(!empty($arrProductos)) { 
+            echo "console.log('".json_encode($arrProductos)."');\n
+            productosBD = JSON.parse('".json_encode($arrProductos)."');\n  " ;   
+?>
+    <?php } ?>
+
+    let lineNo = 1; //Agregar productos a tabla´
+        $(document).ready(function () {
+            $(".add-row").click(function () {
+                let acumulado = 0.0;
+                const id =$("#id_producto").val()
+                const cantidad = $("#cantidad").val()
+
+                //Validaciones
+                if(id == null || id == '') {
+                    alert('Por favor, seleccione un producto.');
+                    return false
+                }
+
+                if(cantidad == null || cantidad == '') {
+                    alert('Por favor, indique cantidad a comprar');
+                    return false;
+                }
+
+                let p = productosBD[id];
+                p['cantidad'] = cantidad;
+                acumulado += parseFloat(p.precio) * parseFloat(cantidad)
+                p['acumulado'] = acumulado
+                productos.push(p)
+
+                markup = "<tr><td> " + p.nombre + 
+                        "</td><td> " + cantidad 
+                    +"</td><td> $ " + p.precio 
+                    + "</td><td> $ " + acumulado
+                    + "</td></tr>";
+                tableBody = $("table tbody");
+                tableBody.append(markup);
+                lineNo++;
+            });
+        }); 
+
+        function enviarFormulario() {
+            //validaciones
+            if(productos.length < 1) {
+                alert('Por favor, agregue productos')
+                return false;
+            }
+            $("#dataJson").val(JSON.stringify(productos));
+            $("#formulario").submit();
+        }
 </script>

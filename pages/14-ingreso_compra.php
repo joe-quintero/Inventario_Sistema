@@ -165,10 +165,9 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                     <input type="number" id= cantidad name="cantidad" placeholder="10" value = "<?php echo $cantidad ?>"> 
                     <br>
                 </fieldset>
-                <br>
-                <input type="submit" value="Agregar Prodcuto" class="boton-envio">  
             </form>
-            <button class="add-row">Add row</button>
+            <br>
+            <button class="add-row">Agregar Prodcutos</button>
 
             <div>
             <table class="propiedades">
