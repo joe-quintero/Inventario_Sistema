@@ -119,7 +119,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                 <fieldset>
                     <legend>Selecionar Proveedor</legend>
 
-                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda">
+                    <select name="id_proveedor" id="id_proveedor" name="id_proveedor" class="selectBusqueda" autofocus>
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
                             <option   <?php echo $id_proveedor === $row ['id_proveedor'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_proveedor'] ?>"><?php echo $row ['preci_rif'] ?>  <?php echo $row ['ci_rif'] ?> - <?php echo $row ['nombre'] ?> </option>

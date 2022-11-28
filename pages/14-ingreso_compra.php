@@ -145,10 +145,10 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                 <fieldset>
                     <legend>Ingresar productos</legend>
                     <label for="proveedor">Proveedor</label>
-                    <input type="text" value = "<?php echo $prov->preci_rif?><?php echo " - "?><?php echo $prov->ci_rif?><?php echo " - "?><?php echo $prov->nombre?>" disabled="disabled">
-                    <br><br>
+                    <input class="form-control" type="text" value = "<?php echo $prov->preci_rif?><?php echo " - "?><?php echo $prov->ci_rif?><?php echo " - "?><?php echo $prov->nombre?>" disabled="disabled" >
+                    <br>
                     <label for="producto">Producto</label>
-                    <select name="id_producto" id="id_producto" class="selectBusqueda">
+                    <select name="id_producto" id="id_producto" class="selectBusqueda" autofocus>
                         <option value="">---Seleccionar---</option>
                         <?php foreach ($arrProductos as $row ){ 
                         ?>
@@ -160,9 +160,9 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                             - Precio: <?php echo $row ['precio']?>$</option>
                         <?php  }?>
                     </select>
-                    <br><br>
+                    <br>
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" id= cantidad name="cantidad" placeholder="10" value = "<?php echo $cantidad ?>"> 
+                    <input class="form-control" type="number" id= cantidad name="cantidad" placeholder="10" value = "<?php echo $cantidad ?>"> 
                     <br>
                 </fieldset>
             </form>

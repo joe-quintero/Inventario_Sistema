@@ -143,11 +143,11 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                         <option value="J">J</option>
                         <option value="G">G</option>
                     </select>
-                    <input type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>" autofocus> 
+
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Cliente" value="<?php echo $nombre ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Cliente" value="<?php echo $nombre ?>"> 
+
                     <label for="cantidad">Producto</label>
                     <select name="id_producto" id="id_producto" name="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
@@ -163,8 +163,8 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                     </select>
                     <br>
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" id= cantidad name="cantidad" placeholder="10"> 
-                    <br>
+                    <input class="form-control" type="number" id= cantidad name="cantidad" placeholder="10"> 
+
                 </fieldset>
                 <br>
             </form>
