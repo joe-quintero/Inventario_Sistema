@@ -139,7 +139,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Producto</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>" autofocus> 
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>"> 
 
                     <label for="tipo_producto">Tipo de Producto</label>
                     <input class="form-control" type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite 20-50 Minaral" value="<?php echo $tipo_producto ?>"> 
@@ -171,7 +171,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="Actualizar" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio" autofocus>  
             </form>
 
         </div>

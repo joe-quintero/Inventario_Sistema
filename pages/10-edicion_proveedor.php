@@ -118,7 +118,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Proveedor</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>" autofocus> 
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
 
                     <label for="preci_rif">CI - RIF</label>
                     <select name="preci_rif" id="preci_rif" name="preci_rif">
@@ -151,7 +151,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Actualizar" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio" autofocus>  
             </form>
 
         </div>

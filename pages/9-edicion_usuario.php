@@ -124,7 +124,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Usuario</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>" autofocus> 
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
 
                     <label for="apellido">Apellido</label>
                     <input class="form-control" type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
@@ -144,7 +144,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="Actualizar" class="boton-envio">  
+                <input type="submit" value="Actualizar" class="boton-envio" autofocus>  
             </form>
 
         </div>

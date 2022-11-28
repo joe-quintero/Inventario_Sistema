@@ -138,7 +138,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     }*/
                     ?>
                     </select>
-                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" disabled="disabled" value="<?php echo $ci_rif ?>" autofocus> 
+                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" disabled="disabled" value="<?php echo $ci_rif ?>"> 
 
                     <label for="nombre">Nombre</label>
                     <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
@@ -155,7 +155,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Actualizar" Class="boton-envio">  
+                <input type="submit" value="Actualizar" Class="boton-envio" autofocus>  
             </form>
 
         </div>
