@@ -158,7 +158,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="Agregar" Class="boton-envio">  
+                <input type="submit" value="Agregar" Class="btn btn-primary boton-envio">  
             </form>
 
         </div>

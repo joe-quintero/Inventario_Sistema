@@ -155,7 +155,7 @@ include '../include/templates/navegacion.php'; //Navegacion
 
                 </fieldset>
 
-                <input type="submit" value="Actualizar" Class="boton-envio" autofocus>  
+                <input type="submit" value="Actualizar" Class="btn btn-primary boton-envio" autofocus>  
             </form>
 
         </div>

@@ -128,7 +128,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                 </fieldset>
                 <br>
                 <!-- <input type="submit" value="Selecionar Proveedor" class="boton-envio">   -->
-                <a href="#" onclick = "envioProveedor()">Seleccionar</a>
+                <a class="btn btn-primary" href="#" onclick = "envioProveedor()">Seleccionar</a>
             </form>
 
         </div>

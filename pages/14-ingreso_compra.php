@@ -167,7 +167,7 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                 </fieldset>
             </form>
             <br>
-            <button class="add-row">Agregar Prodcutos</button>
+            <button class="add-row btn btn-success">Agregar Prodcutos</button>
 
             <div>
             <table class="table table-striped">
@@ -186,7 +186,7 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                 </tbody>
             </table>
             <br>
-            <button onclick = "enviarFormulario()">Realizar Compra</button>
+            <button class="btn btn-primary" onclick = "enviarFormulario()">Realizar Compra</button>
         </div>
         </div>
     </div>

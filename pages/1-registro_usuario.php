@@ -139,7 +139,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="crear usuario" class="boton-envio">  
+                <input type="submit" value="crear usuario" class="btn btn-primary boton-envio">  
             </form>
 
         </div>
