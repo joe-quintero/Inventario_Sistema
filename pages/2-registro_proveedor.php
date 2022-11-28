@@ -108,7 +108,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Proveedor</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>" autofocus> 
 
                     <label for="preci_rif">CI - RIF</label>
                     <select name="preci_rif" id="preci_rif" name="preci_rif">

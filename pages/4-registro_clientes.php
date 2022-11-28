@@ -120,7 +120,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                         <option value="J">J</option>
                         <option value="G">G</option>
                     </select>
-                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>" autofocus> 
 
                     <label for="nombre">Nombre</label>
                     <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 

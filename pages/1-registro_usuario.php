@@ -119,7 +119,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                 <fieldset>
                     <legend>Datos del Usuario</legend>
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>" autofocus> 
                     
                     <label for="apellido">Apellido</label>
                     <input class="form-control" type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
