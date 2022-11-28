@@ -21,7 +21,7 @@ foreach($productosVenta as $producto) {
     $insertarOperacion = "INSERT INTO operacion(operacion, id_producto, nombre_producto, cirif_cleinte_proveedor, nombre_cliente_proveedor, cantidad, precio_unitario, precio_total, fecha, id_usuario, nombre_usuario, id_tipo_operacion) VALUES ('VENTA', ?, ?, '111111111', 'PEPE', ?, ?, ?, sysdate(), '1', 'jdquintero', '102')";
     $stmt = $db->prepare($insertarOperacion);
     //echo $producto['id'];
-    $stmt->bind_param("isidd", $producto->id, $producto->nombre, $producto->cantidad, $producto->precio, $producto->acumulado);
+    $stmt->bind_param("issdd", $producto->id, $producto->nombre, $producto->cantidad, $producto->precio, $producto->acumulado);
     $stmt->execute();
     $stmt->close();
 

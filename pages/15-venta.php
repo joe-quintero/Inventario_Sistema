@@ -24,9 +24,9 @@ $resultadoProducto = $stmt->get_result(); // get the mysqli result
 $errores= [];
 
 $nombre = ''; //variables para valores temporales en el formulario
-// $apellido = '';
+$apellido = '';
 $identificacion = '';
-// $usuario =  '';
+$preci_rif = '';
 $id_producto = '';
 
 // Ejecutar el codigo luego que el usuario envia el formulario.
@@ -136,18 +136,13 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
             <form class="formulario" method="POST">
                 <fieldset>
                     <legend>Selecionar Productos</legend>
-                    <label for="preci_rif">CI - RIF</label>
-                    <select name="preci_rif" id="preci_rif" name="preci_rif">
-                        <option value="">-</option>
-                        <option value="V">V</option>
-                        <option value="J">J</option>
-                        <option value="G">G</option>
-                    </select>
-                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>" autofocus> 
+
+                    <label for="cirif_cleinte_proveedor">CI - RIF</label>
+                    <input class="form-control" type="text" id= cirif_cleinte_proveedor name="cirif_cleinte_proveedor"  maxlength="9" placeholder="Cedula / RIF" value="<?php echo $identificacion ?>" autofocus> 
 
                     <label for="nombre">Nombre</label>
                     <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Cliente" value="<?php echo $nombre ?>"> 
-
+                    
                     <label for="cantidad">Producto</label>
                     <select name="id_producto" id="id_producto" name="id_producto" class="selectBusqueda">
                         <option value="">---Seleccionar---</option>
@@ -223,12 +218,12 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
                 const cantidad = $("#cantidad").val()
 
                 //Validaciones
-                if(id == null || id == '') {
+                if(id == null || id == '') { //Producto
                     alert('Por favor, seleccione un producto.');
                     return false
                 }
 
-                if(cantidad == null || cantidad == '') {
+                if(cantidad == null || cantidad == '') {//Cantidad
                     alert('Por favor, indique cantidad a comprar');
                     return false;
                 }
@@ -251,7 +246,20 @@ while ($row = mysqli_fetch_assoc($resultadoProducto) ) {
         }); 
 
         function enviarFormulario() {
+            const ci_rif = $("#cirif_cleinte_proveedor").val()
+            const nombre = $("#nombre").val()
+            
             //validaciones
+            if(ci_rif == null || ci_rif == '') {//Identificacion
+                alert('Por favor, indique CI - RIF del cliente');
+                return false;
+            }
+
+            if(nombre == null || nombre == '') {//Nombre
+                alert('Por favor, indique nombre del cliente');
+                return false;
+            }
+
             if(productos.length < 1) {
                 alert('Por favor, agregue productos')
                 return false;
