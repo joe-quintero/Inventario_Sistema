@@ -139,7 +139,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                     </select>
                 </fieldset>
 
-                <input type="submit" value="crear usuario" class="btn btn-primary boton-envio">  
+                <input type="submit" value="crear usuario" onclick = "enviarFormulario()" class="btn btn-primary boton-envio">  
             </form>
 
         </div>
@@ -147,4 +147,8 @@ include '../include/templates/navegacion.php'; //Navegacion
 
 </div>
 
-<?php include '../include/templates/script.php'; //JavaScript
+<?php include '../include/templates/script.php'; //JavaScript?>
+
+<script>
+    
+</script>
