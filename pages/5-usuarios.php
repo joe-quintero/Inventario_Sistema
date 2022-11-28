@@ -60,6 +60,7 @@ include '../include/templates/navegacion.php'; //Navegacion
                                 <th scope="col">Usuario</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido</th>
+
                                 <th scope="col">Cargo</th>
                                 <th scope="col">Estatus</th>
                                 <th scope="col">Acciones</th>

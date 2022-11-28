@@ -118,21 +118,20 @@ include '../include/templates/navegacion.php'; //Navegacion
             <form class="formulario" method="POST" action="1-registro_usuario.php">
                 <fieldset>
                     <legend>Datos del Usuario</legend>
-
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre; ?>"> 
+                    
                     <label for="apellido">Apellido</label>
-                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido; ?>"> 
+                    
                     <label for="identificacion">Cedula</label>
-                    <input type="number" id= identificacion name="identificacion" maxlength="10" placeholder="Cedula de identidad" value="<?php echo $identificacion; ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= identificacion name="identificacion" maxlength="10" placeholder="Cedula de identidad" value="<?php echo $identificacion; ?>"> 
+                    
                     <label for="usuario">Usuario</label>
-                    <input type="text" id= usuario name="usuario" placeholder="Nombre de Usuario" value="<?php echo $usuario; ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= usuario name="usuario" placeholder="Nombre de Usuario" value="<?php echo $usuario; ?>"> 
+                    
                     <label for="id_cargo">Cargo</label>
-                    <select name="id_cargo" id="id_cargo" name="id_cargo">
+                    <select class= "form-select" name="id_cargo" id="id_cargo" name="id_cargo">
                         <option value="">---Seleccionar---</option>
                         <?php while ($row = mysqli_fetch_assoc($resultado) ): ?>
                             <option   <?php echo $id_cargo === $row ['id_cargo'] ? 'selected' : ''; ?>   value="<?php echo $row ['id_cargo'] ?>"> <?php echo $row ['cargo'] ?> </option>

@@ -122,7 +122,6 @@ include '../include/templates/navegacion.php'; //Navegacion
 
                     <legend>Datos del Cliente</legend>
 
-                    <br>
                     <label for="preci_rif">CI - RIF</label>
                     <select name="preci_rif" id="preci_rif" name="preci_rif" disabled="disabled">
                         <option value="<?php echo $preci_rif?>"> <?php echo $preci_rif?> </option>
@@ -139,19 +138,19 @@ include '../include/templates/navegacion.php'; //Navegacion
                     }*/
                     ?>
                     </select>
-                    <input type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" disabled="disabled" value="<?php echo $ci_rif ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= ci_rif name="ci_rif"  maxlength="9" placeholder="Cedula / RIF" disabled="disabled" value="<?php echo $ci_rif ?>"> 
+
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+
                     <label for="apellido">Apellido</label>
-                    <input type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= apellido name="apellido" placeholder="Apellido del Usuario" value="<?php echo $apellido ?>"> 
+
                     <label for="telefono">Telefono</label>
-                    <input type="text" id= telefono name="telefono" placeholder="0424-123-1212" value="<?php echo $telefono ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= telefono name="telefono" placeholder="0424-123-1212" value="<?php echo $telefono ?>"> 
+
                     <label for="direccion">Direcion</label>
-                    <input type="text" id= direccion name="direccion" placeholder="San Bernardino..." value="<?php echo $direccion ?>"> 
+                    <input class="form-control" type="text" id= direccion name="direccion" placeholder="San Bernardino..." value="<?php echo $direccion ?>"> 
 
 
                 </fieldset>

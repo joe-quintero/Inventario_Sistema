@@ -118,8 +118,8 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Proveedor</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Usuario" value="<?php echo $nombre ?>"> 
+
                     <label for="preci_rif">CI - RIF</label>
                     <select name="preci_rif" id="preci_rif" name="preci_rif">
                         <option value="<?php echo $preci_rif?>"> <?php echo $preci_rif?> </option>
@@ -136,16 +136,16 @@ include '../include/templates/navegacion.php'; //Navegacion
                     }
                     ?>
                     </select>
-                    <input type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= ci_rif name="ci_rif" placeholder="Cedula / RIF" value="<?php echo $ci_rif ?>"> 
+
                     <label for="telefono">Telefono</label>
-                    <input type="text" id= telefono name="telefono" placeholder="0424-123-4567" value="<?php echo $telefono ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= telefono name="telefono" placeholder="0424-123-4567" value="<?php echo $telefono ?>"> 
+
                     <label for="direccion">Direcion</label>
-                    <input type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value="<?php echo $direccion ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= direccion name="direccion" placeholder="Direccion de Proveedor" value="<?php echo $direccion ?>"> 
+
                     <label for="tipo_producto">Tipo de Producto</label>
-                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value="<?php echo $tipo_producto ?>"> 
+                    <input class="form-control" type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite, Bateria, Filtros..." value="<?php echo $tipo_producto ?>"> 
 
 
 

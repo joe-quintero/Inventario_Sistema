@@ -126,29 +126,29 @@ include '../include/templates/navegacion.php'; //Navegacion
                     <legend>Datos del Producto</legend>
 
                     <label for="nombre">Nombre</label>
-                    <input type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= nombre name="nombre" placeholder="Nombre del Producto" value="<?php echo $nombre ?>"> 
+
                     <label for="tipo_producto">Tipo de Producto</label>
-                    <input type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite 20-50 Minaral" value="<?php echo $tipo_producto ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= tipo_producto name="tipo_producto" placeholder="Aceite 20-50 Minaral" value="<?php echo $tipo_producto ?>"> 
+
                     <label for="marca">Marca</label>
-                    <input type="text" id= marca name="marca" placeholder="Ultra Lub" value="<?php echo $marca ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= marca name="marca" placeholder="Ultra Lub" value="<?php echo $marca ?>"> 
+
                     <label for="precio_costo">Precio de Costo</label>
-                    <input type="number" id= precio_costo name="precio_costo" placeholder="10" value="<?php echo $precio_costo ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= precio_costo name="precio_costo" placeholder="10" value="<?php echo $precio_costo ?>"> 
+
                     <label for="precio_venta">Precio de venta</label>
-                    <input type="number" id= precio_venta name="precio_venta" placeholder="11" value="<?php echo $precio_venta ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= precio_venta name="precio_venta" placeholder="11" value="<?php echo $precio_venta ?>"> 
+
                     <label for="descripcion">Descripcion</label>
-                    <input type="text" id= descripcion name="descripcion" placeholder="Aceite mineral para motor" value="<?php echo $descripcion ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= descripcion name="descripcion" placeholder="Aceite mineral para motor" value="<?php echo $descripcion ?>"> 
+
                     <label for="aplicacion">Aplicacion</label>
-                    <input type="text" id= aplicacion name="aplicacion" placeholder="Carro, Moto, Corolla" value="<?php echo $aplicacion ?>"> 
-                    <br>
+                    <input class="form-control" type="text" id= aplicacion name="aplicacion" placeholder="Carro, Moto, Corolla" value="<?php echo $aplicacion ?>"> 
+
                     <label for="codigo_barra">Codigo de Barra</label>
-                    <input type="number" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
-                    <br>
+                    <input class="form-control" type="number" id= codigo_barra name="codigo_barra" placeholder="123456789" value="<?php echo $codigo_barra ?>"> 
+
                     <label for="id_proveedor">Proveedor</label>
                     <select name="id_proveedor" id="id_proveedor" class="selectBusqueda" name="id_proveedor">
                         <option value="">---Seleccionar---</option>
