@@ -12,7 +12,7 @@ require '../include/config/database.php';
 $db = conectarDB();
 
 //Consulta para optener cargo
-$consultaProveedores = "SELECT A.* FROM proveedor A INNER JOIN PRODUCTOS B ON A.ID_PROVEEDOR = B.ID_PROVEEDOR";
+$consultaProveedores = "SELECT DISTINCT A.id_proveedor, A.nombre, A.preci_rif, A.ci_rif FROM proveedor A INNER JOIN PRODUCTOS B ON A.ID_PROVEEDOR = B.ID_PROVEEDOR";
 $resultado = mysqli_query($db,$consultaProveedores);
 
 
