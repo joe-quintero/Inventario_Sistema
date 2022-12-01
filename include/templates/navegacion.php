@@ -6,6 +6,7 @@
 
     $auth = $_SESSION['login'] ?? false;
     $nombre_usuario = $_SESSION['usuario'];
+    $id_usuario = $_SESSION['id_usuario'];
 ?>
 
 

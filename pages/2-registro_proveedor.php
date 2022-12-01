@@ -6,6 +6,9 @@ if(!$auth){
     header('location: login.php');
 }
 
+$nombre_usuario = $_SESSION['usuario'];
+$id_usuario = $_SESSION['id_usuario'];
+
 $mensaje= $_GET['mensaje'] ?? null; // variable por la url de mensaje
 require '../include/config/database.php';
 
@@ -34,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     $telefono =mysqli_real_escape_string($db , $_POST['telefono']);;
     $direccion =mysqli_real_escape_string($db , $_POST['direccion']);
     $tipo_producto =mysqli_real_escape_string($db , $_POST['tipo_producto']);
+    $nombre_usuario =mysqli_real_escape_string($db , $_SESSION['usuario']);
+    $id_usuario =mysqli_real_escape_string($db , $_SESSION['id_usuario']);
     $fecha = date('Y/m/d');
 
 
@@ -68,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST') {
     
 # Insertar en la Bade de Datos
 $query = "INSERT INTO proveedor (nombre, ci_rif, preci_rif, telefono, direccion, tipo_producto, fecha, id_usuario_registro, nombre_Usuario) 
-VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_producto', '$fecha',2,'Joe')"; 
+VALUES ('$nombre', '$ci_rif', '$preci_rif', '$telefono', '$direccion', '$tipo_producto', '$fecha',$id_usuario,'$nombre_usuario')"; 
 
 //    echo $query; //Probar que envia el query
 
@@ -81,6 +86,8 @@ if ($resultado) {
 }
 
 include '../include/templates/navegacion.php'; //Navegacion
+
+
 ?>
     <!-- Page Content -->
     <div id="page-wrapper">
